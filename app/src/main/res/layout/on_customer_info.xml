@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/relative_layout"
+    android:padding="2dp"
+    android:background="#ffffff">
+    <TextView
+        android:id="@+id/on_customer_f_name_and_l_name"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Name and surname"
+        android:gravity="center"
+        android:textSize="25sp"
+        />
+    <TextView
+        android:id="@+id/on_customer_skills"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="JS"
+        android:textSize="12sp"
+        android:layout_alignBottom="@+id/on_customer_f_name_and_l_name"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        />
+    <TextView
+        android:id="@+id/on_customer_status"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="false"
+        android:paddingLeft="5dp"
+        android:layout_alignBottom="@+id/on_customer_f_name_and_l_name"
+        android:layout_alignParentLeft="true"
+        />
+    <TextView
+        android:id="@+id/on_customer_from"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="id 1"
+        android:gravity="center"
+        android:paddingLeft="170dp"
+        android:layout_alignBottom="@+id/on_customer_f_name_and_l_name"
+        />
+</RelativeLayout>
