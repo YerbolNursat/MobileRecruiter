@@ -11,8 +11,6 @@ public interface server_api {
     Call<List<Vacancy>> getVacancies();
     @GET("/posts")
     Call<List<Post>> getPosts();
-    @GET("/post/skills/{id}")
-    Call<List<Skill>> getSkillsById(@Path("id") int id);
     @GET("/vacancy/{id}")
     Call<List<Vacancy>> getVacancyById(@Path("id") int id);
 

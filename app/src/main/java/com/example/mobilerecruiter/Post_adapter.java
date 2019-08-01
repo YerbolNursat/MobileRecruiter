@@ -9,15 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder> {
     ArrayList<Post> post;
-    ArrayList<Skill> skills;
     public Post_adapter(ArrayList<Post> post){this.post=post;}
     @NonNull
     @Override
@@ -30,27 +24,10 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
         myViewHolder.name_surname.setText(post.get(position).getF_name()+" "+post.get(position).getL_name());
-        NetworkService.getInstance()
-                .getJSONApi()
-                .getSkillsById(post.get(position).getId())
-                .enqueue(new Callback<List<Skill>>() {
-                    @Override
-                    public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
-                        assert response.body() != null;
-                        skills = new ArrayList<>(response.body());
-                        StringBuilder description= new StringBuilder();
-                        for(int i=0;i<skills.size();i++){
-                            description.append(skills.get(i).getTag()).append(" ");
-                        }
-                        myViewHolder.post_skills.setText(description.toString());
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Skill>> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+        for (int i=0;i<post.get(position).getSkills().size();i++){
+            myViewHolder.post_skills.setText(myViewHolder.post_skills.getText()+" "+
+                    post.get(position).getSkills().get(i));
+        }
     }
 
     @Override

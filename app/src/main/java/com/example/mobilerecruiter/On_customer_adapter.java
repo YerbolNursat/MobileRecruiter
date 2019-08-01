@@ -18,7 +18,6 @@ import retrofit2.Response;
 
 public class On_customer_adapter extends RecyclerView.Adapter<On_customer_adapter.MyViewHolder> {
     ArrayList<Post> On_customer;
-    ArrayList<Skill> post_skills;
     ArrayList<Vacancy> vacancies;
 
 
@@ -41,46 +40,44 @@ public class On_customer_adapter extends RecyclerView.Adapter<On_customer_adapte
             myViewHolder.status.setText("Резюме не просмотрено");
 
         }
-        NetworkService.getInstance()
-                .getJSONApi()
-                .getSkillsById(On_customer.get(position).getId())
-                .enqueue(new Callback<List<Skill>>() {
-                    @Override
-                    public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
-                        assert response.body() != null;
-                        post_skills= new ArrayList<>(response.body());
-                        StringBuilder description= new StringBuilder();
-                        for(int i=0;i<post_skills.size();i++){
-                            description.append(post_skills.get(i).getTag()).append(" ");
-                        }
-                        myViewHolder.skills.setText(description.toString());
+//        NetworkService.getInstance()
+//                .getJSONApi()
+//                .getSkillsById(On_customer.get(position).getId())
+//                .enqueue(new Callback<List<Skill>>() {
+//                    @Override
+//                    public void onResponse(Call<List<Skill>> call, Response<List<Skill>> response) {
+//                        assert response.body() != null;
+//                        post_skills= new ArrayList<>(response.body());
+//                        StringBuilder description= new StringBuilder();
+//                        for(int i=0;i<post_skills.size();i++){
+//                            description.append(post_skills.get(i).getTag()).append(" ");
+//                        }
+//                        myViewHolder.skills.setText(description.toString());
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<List<Skill>> call, Throwable t) {
+//                        t.printStackTrace();
+//                    }
+//                });
 
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Skill>> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
-
-        NetworkService.getInstance()
-                .getJSONApi()
-                .getVacancyById(On_customer.get(position).getVacancy_id())
-                .enqueue(new Callback<List<Vacancy>>() {
-                    @Override
-                    public void onResponse(Call<List<Vacancy>> call, Response<List<Vacancy>> response) {
-                        assert response.body() != null;
-                        vacancies=new ArrayList<>(response.body());
-                        System.out.println(response.body());
-                        //myViewHolder.from.setText(vacancies.get(0).getTitle());
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Vacancy>> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+//        NetworkService.getInstance()
+//                .getJSONApi()
+//                .getVacancyById(On_customer.get(position).getVacancy_id())
+//                .enqueue(new Callback<List<Vacancy>>() {
+//                    @Override
+//                    public void onResponse(Call<List<Vacancy>> call, Response<List<Vacancy>> response) {
+//                        assert response.body() != null;
+//                        vacancies=new ArrayList<>(response.body());
+//                        myViewHolder.from.setText(vacancies.get(0).getTitle());
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<List<Vacancy>> call, Throwable t) {
+//                        t.printStackTrace();
+//                    }
+//                });
     }
     @Override
     public int getItemCount() {
@@ -95,12 +92,6 @@ public class On_customer_adapter extends RecyclerView.Adapter<On_customer_adapte
             skills=itemView.findViewById(R.id.on_customer_skills);
             from=itemView.findViewById(R.id.on_customer_from);
 
-            from.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent=new Intent()
-                }
-            });
         }
     }
 }

@@ -25,7 +25,6 @@ public class Vacancy_adapter extends RecyclerView.Adapter<Vacancy_adapter.MyView
     public void onBindViewHolder(@NonNull Vacancy_adapter.MyViewHolder myViewHolder, int position) {
         myViewHolder.title.setText(vacancy.get(position).getTitle());
         myViewHolder.description.setText(vacancy.get(position).getDescription());
-        myViewHolder.experience.setText(vacancy.get(position).getExperience());
     }
 
     @Override
@@ -40,7 +39,6 @@ public class Vacancy_adapter extends RecyclerView.Adapter<Vacancy_adapter.MyView
             super(itemView);
             title=itemView.findViewById(R.id.vacancy_title);
             description=itemView.findViewById(R.id.vacancy_description);
-            experience=itemView.findViewById(R.id.vacancy_experience);
         }
     }
 }

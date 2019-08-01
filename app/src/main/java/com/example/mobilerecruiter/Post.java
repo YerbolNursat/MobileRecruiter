@@ -3,8 +3,9 @@ package com.example.mobilerecruiter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Post {
+import java.util.ArrayList;
 
+public class Post {
     @SerializedName("id")
     @Expose
     private int id=0;
@@ -35,26 +36,28 @@ public class Post {
     @SerializedName("is_deployed")
     @Expose
     private int is_deployed=0;
+    @SerializedName("cv_file_name")
+    @Expose
+    private String cv_file_name=null;
+    @SerializedName("username")
+    @Expose
+    private String username=null;
     @SerializedName("vacancy_id")
     @Expose
     private int vacancy_id=0;
+    @SerializedName("comments")
+    @Expose
+    private ArrayList<Comment> comments;
+    @SerializedName("skills")
+    @Expose
+    private ArrayList<String> skills;
 
     public Post() {
 
     }
 
-    public Post(int id,String f_name, String l_name, String mail, String telephon_number, String description, int vacancy_id) {
-        this.id=id;
-        this.f_name = f_name;
-        this.l_name = l_name;
-        this.mail = mail;
-        this.telephon_number = telephon_number;
-        this.description = description;
-        this.vacancy_id = vacancy_id;
-    }
-
-    public Post(int id,String f_name, String l_name, String mail, String telephon_number, String description, int passed_cv, int passed_customer, int passed_interview, int is_deployed, int vacancy_id) {
-        this.id=id;
+    public Post(int id, String f_name, String l_name, String mail, String telephon_number, String description, int passed_cv, int passed_customer, int passed_interview, int is_deployed, String cv_file_name, String username, int vacancy_id, ArrayList<String> skills) {
+        this.id = id;
         this.f_name = f_name;
         this.l_name = l_name;
         this.mail = mail;
@@ -64,7 +67,28 @@ public class Post {
         this.passed_customer = passed_customer;
         this.passed_interview = passed_interview;
         this.is_deployed = is_deployed;
+        this.cv_file_name = cv_file_name;
+        this.username = username;
         this.vacancy_id = vacancy_id;
+        this.skills = skills;
+    }
+
+    public Post(int id, String f_name, String l_name, String mail, String telephon_number, String description, int passed_cv, int passed_customer, int passed_interview, int is_deployed, String cv_file_name, String username, int vacancy_id, ArrayList<Comment> comments, ArrayList<String> skills) {
+        this.id = id;
+        this.f_name = f_name;
+        this.l_name = l_name;
+        this.mail = mail;
+        this.telephon_number = telephon_number;
+        this.description = description;
+        this.passed_cv = passed_cv;
+        this.passed_customer = passed_customer;
+        this.passed_interview = passed_interview;
+        this.is_deployed = is_deployed;
+        this.cv_file_name = cv_file_name;
+        this.username = username;
+        this.vacancy_id = vacancy_id;
+        this.comments = comments;
+        this.skills = skills;
     }
 
     public int getId() {
@@ -155,4 +179,35 @@ public class Post {
         this.vacancy_id = vacancy_id;
     }
 
+    public String getCv_file_name() {
+        return cv_file_name;
+    }
+
+    public void setCv_file_name(String cv_file_name) {
+        this.cv_file_name = cv_file_name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public ArrayList<String> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(ArrayList<String> skills) {
+        this.skills = skills;
+    }
 }
