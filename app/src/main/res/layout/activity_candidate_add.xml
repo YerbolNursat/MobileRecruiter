@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <LinearLayout
+        android:id="@+id/candidate_add_parameters"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/candidate_add_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:height="2dp"
+            android:hint="Имя"
+            android:inputType="textCapSentences" />
+
+        <EditText
+            android:id="@+id/candidate_add_surname"
+            android:layout_width="match_parent"
+            android:height="2dp"
+            android:hint="Фамилия"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:inputType="textCapSentences" />
+
+        <EditText
+            android:id="@+id/candidate_add_telephone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="Мобильный телефон"
+            android:inputType="phone" />
+        <EditText
+            android:id="@+id/candidate_add_skills"
+            android:layout_width="match_parent"
+            android:layout_height="178dp"
+            android:layout_margin="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="0.5"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="skills"
+            android:inputType="textMultiLine" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/candidate_add_messages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/candidate_add_parameters">
+        <android.support.v7.widget.SearchView
+            android:id="@+id/candidate_add_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:queryHint="Choose email"
+            >
+
+        </android.support.v7.widget.SearchView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/candidate_add_recycle_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/candidate_add_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/candidate_add_messages">
+
+        <Button
+                android:id="@+id/candidate_add_btn_create"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                android:backgroundTint="@color/colorAccent"
+                android:background="@color/colorAccent"
+                android:textColor="@android:color/white"
+                android:layout_margin="10dp"
+                android:text="Добавить" />
+        <Button
+                android:id="@+id/candidate_add_btn_cancel"
+                android:layout_width="0dp"
+                android:text="Отмена"
+                android:layout_margin="10dp"
+                android:textColor="@android:color/white"
+                android:background="@android:color/darker_gray"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"/>
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="2dp"
+    android:background="#ffffff">
+    <TextView
+        android:id="@+id/message_info_from"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="from email"
+        android:gravity="center"
+        android:textSize="25sp"
+        />
+    <TextView
+        android:id="@+id/message_date"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="26.02.12"
+        android:paddingLeft="170dp"
+        android:textSize="12sp"
+        android:layout_below="@+id/message_info_from"
+        />
+    <TextView
+        android:id="@+id/message_subject"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="CV"
+        android:paddingLeft="170dp"
+        android:layout_below="@+id/message_date"
+        />
+    <TextView
+        android:id="@+id/message_filename"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:text="cv.pdf"
+        android:paddingLeft="170dp"
+        android:layout_below="@+id/message_subject"
+        />
+</RelativeLayout>
