@@ -24,6 +24,7 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
         myViewHolder.name_surname.setText(post.get(position).getF_name()+" "+post.get(position).getL_name());
+        myViewHolder.post_skills.setText("");
         for (int i=0;i<post.get(position).getSkills().size();i++){
             myViewHolder.post_skills.setText(myViewHolder.post_skills.getText()+" "+
                     post.get(position).getSkills().get(i));

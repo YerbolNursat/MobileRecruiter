@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Comment {
-    @SerializedName("cv_file_name")
+    @SerializedName("description")
     @Expose
     private String description=null;
     @SerializedName("username")

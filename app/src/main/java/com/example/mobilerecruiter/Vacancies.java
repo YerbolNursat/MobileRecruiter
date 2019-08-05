@@ -1,9 +1,11 @@
 package com.example.mobilerecruiter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +41,9 @@ public class Vacancies extends Fragment {
     private String mParam2;
     ArrayList<Vacancy> events ;
     RecyclerView rv;
+    private FloatingActionButton fab;
+
+    private Intent vacancy;
 
 
     private OnFragmentInteractionListener mListener;
@@ -78,6 +83,7 @@ public class Vacancies extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_vacancies, container, false);
+        fab = view.findViewById(R.id.vacancy_fab);
         rv=view.findViewById(R.id.vacancy_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
@@ -97,6 +103,13 @@ public class Vacancies extends Fragment {
                         t.printStackTrace();
                     }
                 });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addVacancy();
+            }
+        });
+
         rv.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv, new ClickListener() {
 
             @Override
@@ -110,7 +123,10 @@ public class Vacancies extends Fragment {
         }));
         return view ;
     }
-
+    private void addVacancy() {
+        vacancy = new Intent(getActivity(), Vacancy_add.class);
+        startActivity(vacancy);
+    }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {

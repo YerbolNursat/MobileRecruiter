@@ -16,13 +16,13 @@
         android:scrollbars="vertical" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/vacancy_fab"
         android:layout_width="wrap_content"
-        android:onClick="addVacancy"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
-        android:src="@drawable/add" />
+        android:src="@drawable/add"
+        tools:ignore="RtlHardcoded" />
 
 </FrameLayout>

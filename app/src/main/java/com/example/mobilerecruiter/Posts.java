@@ -1,15 +1,20 @@
 package com.example.mobilerecruiter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Posts.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Posts#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Posts extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,7 +36,10 @@ public class Posts extends Fragment {
     private String mParam2;
     ArrayList<Post> events ;
     RecyclerView rv;
-
+    private FloatingActionButton fab;
+    private Intent candidate;
+    ArrayList<Post> mylist=new ArrayList<>();
+    private SearchView searchActivity;
     private OnFragmentInteractionListener mListener;
     public Posts() {
         // Required empty public constructor
@@ -78,6 +79,32 @@ public class Posts extends Fragment {
         rv=view.findViewById(R.id.posts_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
+        fab = view.findViewById(R.id.posts_fab);
+        searchActivity=view.findViewById(R.id.posts_search);
+
+        fab.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                addCandidate();
+            }
+        });
+
+        rv.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv, new ClickListener() {
+
+            @Override
+            public void onClick(View view, final int position) {
+
+            }
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+        return view ;
+    }
+    public void onStart() {
+        super.onStart();
         NetworkService.getInstance()
                 .getJSONApi()
                 .getPosts()
@@ -94,18 +121,43 @@ public class Posts extends Fragment {
                         t.printStackTrace();
                     }
                 });
-        rv.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv, new ClickListener() {
+        if(searchActivity!=null){
+            searchActivity.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
 
-            @Override
-            public void onClick(View view, final int position) {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    search(newText.toLowerCase());
+                    return true;
+
+                }
+            });
+        }else {
+            mylist.clear();
+        }
+    }
+    private void search(String str) {
+        mylist=new ArrayList<>();
+        for(Post object:events){
+            for (int i = 0; i < object.getSkills().size(); i++) {
+                if (object.getSkills().get(i).toLowerCase().contains(str)||object.getF_name().toLowerCase().contains(str)||object.getL_name().toLowerCase().contains(str)) {
+                        mylist.add(object);
+                        i=object.getSkills().size();
+                }
 
             }
-            @Override
-            public void onLongClick(View view, int position) {
+        }
+        Post_adapter adapterClass=new Post_adapter(mylist);
+        rv.setAdapter(adapterClass);
 
-            }
-        }));
-        return view ;
+    }
+
+    private void addCandidate(){
+        candidate = new Intent(getActivity(), Post_add.class);
+        startActivity(candidate);
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -120,16 +172,6 @@ public class Posts extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

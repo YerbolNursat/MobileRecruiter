@@ -56,6 +56,16 @@ public class Post {
 
     }
 
+    public Post(String f_name, String l_name, String mail, String telephon_number, String cv_file_name, String username, int vacancy_id) {
+        this.f_name = f_name;
+        this.l_name = l_name;
+        this.mail = mail;
+        this.telephon_number = telephon_number;
+        this.cv_file_name = cv_file_name;
+        this.username = username;
+        this.vacancy_id = vacancy_id;
+    }
+
     public Post(int id, String f_name, String l_name, String mail, String telephon_number, String description, int passed_cv, int passed_customer, int passed_interview, int is_deployed, String cv_file_name, String username, int vacancy_id, ArrayList<String> skills) {
         this.id = id;
         this.f_name = f_name;

@@ -9,7 +9,7 @@
     tools:context=".Posts">
 
     <SearchView
-        android:id="@+id/search"
+        android:id="@+id/posts_search"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
         android:layout_height="20dp" />
@@ -22,8 +22,7 @@
         android:scrollbars="vertical" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:onClick="addCandidate"
+        android:id="@+id/posts_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
