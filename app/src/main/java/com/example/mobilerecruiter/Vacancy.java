@@ -4,6 +4,11 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Vacancy {
+
+    @SerializedName("id")
+    @Expose
+    int id=1;
+
     @SerializedName("title")
     @Expose
     String title=null;
@@ -23,11 +28,20 @@ public class Vacancy {
     public Vacancy() {
     }
 
-    public Vacancy(String title, String description, String experience, int user_id) {
+    public Vacancy(int id,String title, String description, String experience, int user_id) {
+        this.id=id;
         this.title = title;
         this.description = description;
         this.experience = experience;
         this.user_id = user_id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

@@ -16,6 +16,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -31,6 +32,15 @@ public interface server_api {
     @GET("/skills")
     Call<List<Skills>> getSkills();
 
+    @PUT("/post")
+    @FormUrlEncoded
+    Call<Void> putPost(@Field("f_name") String f_name,
+                        @Field("l_name") String l_name,
+                        @Field("mail") String mail,
+                        @Field("telephon_number") String telephon_number,
+                        @Field("cv_file_name") String cv_file_name,
+                        @Field("vacancy_id") int vacancy_id);
+
     @POST("/post")
     @FormUrlEncoded
     Call<Void> postPost(@Field("f_name") String f_name,
@@ -40,9 +50,13 @@ public interface server_api {
                         @Field("cv_file_name") String cv_file_name,
                         @Field("vacancy_id") int vacancy_id,
                         @Field("tags")ArrayList<String> tags);
+    @POST("/vacancy")
+    @FormUrlEncoded
+    Call<Void> postVacancy(@Field("title") String title,
+                        @Field("description") String description,
+                        @Field("experience") String experience,
+                        @Field("users_id") int user_id);
     @POST("/resend/storage")
     Call<JsonObject>  resendstorage(@Body RequestBody body);
-
-
 
 }

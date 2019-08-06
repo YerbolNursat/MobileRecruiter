@@ -100,9 +100,7 @@ public class Post_add extends AppCompatActivity {
     }
 
     private ArrayList<String> getarray() {
-        String[] temparr=skills.getText().toString().split(" ");
-        return new ArrayList<>(Arrays.asList(temparr));
-
+        return new ArrayList<>(Arrays.asList(skills.getText().toString().split(" ")));
     }
 
     private boolean CheckParameters() {
