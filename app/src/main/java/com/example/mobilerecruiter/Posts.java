@@ -77,12 +77,8 @@ public class Posts extends Fragment {
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_posts, container, false);
 
-        rv=view.findViewById(R.id.posts_recycler_view);
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        rv.setHasFixedSize(true);
         fab = view.findViewById(R.id.posts_fab);
         searchActivity=view.findViewById(R.id.posts_search);
-
         fab.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -90,12 +86,15 @@ public class Posts extends Fragment {
                 addCandidate();
             }
         });
+        rv=view.findViewById(R.id.posts_recycler_view);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setHasFixedSize(true);
+
 
         rv.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv, new ClickListener() {
 
             @Override
             public void onClick(View view, final int position) {
-
             }
             @Override
             public void onLongClick(View view, int position) {

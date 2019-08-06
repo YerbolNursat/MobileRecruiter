@@ -2,6 +2,7 @@ package com.example.mobilerecruiter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -50,6 +51,7 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
+
         myViewHolder.name_surname.setText(post.get(position).getF_name()+" "+post.get(position).getL_name());
         myViewHolder.post_skills.setText("");
         for (int i=0;i<post.get(position).getSkills().size();i++){
@@ -62,6 +64,24 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
                 ShowPopUp(v,position);
             }
         });
+        myViewHolder.name_surname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Post_page.class);
+                intent.putExtra("id",String.valueOf(post.get(position).getId()));
+                v.getContext().startActivity(intent);
+            }
+        });
+        myViewHolder.post_skills.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), Post_page.class);
+                intent.putExtra("id",String.valueOf(post.get(position).getId()));
+                v.getContext().startActivity(intent);
+
+            }
+        });
+
     }
 
     @Override
@@ -116,7 +136,7 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
         rv.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(), rv, new ClickListener() {
             @Override
             public void onClick(View view, final int position) {
-                put(position,post.get(i));
+                put(events.get(position).getId(),post.get(i));
                 myDialog.dismiss();
             }
             @Override
@@ -129,7 +149,7 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
             @Override
             public void onClick(View view1) {
                 myDialog.setInputMethodMode(INPUT_METHOD_NEEDED);
-                myDialog.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+                myDialog.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
                 myDialog.showAtLocation(v, Gravity.CENTER, 0, 0);
 
             }
@@ -138,7 +158,7 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
     public void put(int id, Post post){
         new NetworkService().
                 getJSONApi().
-                putPost(post.getF_name(),post.getL_name(),post.getMail(),post.getTelephon_number(),post.getCv_file_name(),id).
+                putPost(post.getId(),post.getF_name(),post.getL_name(),post.getMail(),post.getTelephon_number(),post.getCv_file_name(),id).
                 enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {

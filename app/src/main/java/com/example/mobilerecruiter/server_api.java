@@ -25,6 +25,8 @@ public interface server_api {
     Call<List<Vacancy>> getVacancies();
     @GET("/posts")
     Call<List<Post>> getPosts();
+    @GET("/post/{id}")
+    Call<List<Post>> getPostById(@Path("id") int id);
     @GET("/messages")
     Call<List<Message>> getMessages();
     @GET("/vacancy/{id}")
@@ -34,7 +36,8 @@ public interface server_api {
 
     @PUT("/post")
     @FormUrlEncoded
-    Call<Void> putPost(@Field("f_name") String f_name,
+    Call<Void> putPost(@Field("id") int id,
+                       @Field("f_name") String f_name,
                         @Field("l_name") String l_name,
                         @Field("mail") String mail,
                         @Field("telephon_number") String telephon_number,
