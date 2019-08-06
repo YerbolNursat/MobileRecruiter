@@ -32,6 +32,20 @@ import retrofit2.Response;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.widget.PopupWindow.INPUT_METHOD_NEEDED;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder> {
     SearchView sv;
     private RecyclerView rv;

@@ -115,6 +115,10 @@ public class Vacancies extends Fragment {
             @Override
             public void onClick(View view, final int position) {
 
+                Intent intent = new Intent(getContext(), Vacancy_page.class);
+                intent.putExtra("id",String.valueOf(events.get(position).getId()));
+                startActivity(intent);
+
             }
             @Override
             public void onLongClick(View view, int position) {

@@ -2,6 +2,7 @@ package com.example.mobilerecruiter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,9 +25,10 @@ public class Vacancy_adapter extends RecyclerView.Adapter<Vacancy_adapter.MyView
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull Vacancy_adapter.MyViewHolder myViewHolder, int position) {
+    public void onBindViewHolder(@NonNull Vacancy_adapter.MyViewHolder myViewHolder, final int position) {
         myViewHolder.title.setText(vacancy.get(position).getTitle());
         myViewHolder.description.setText(vacancy.get(position).getDescription());
+
     }
 
     @Override

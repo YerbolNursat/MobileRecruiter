@@ -3,6 +3,8 @@ package com.example.mobilerecruiter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Vacancy {
 
     @SerializedName("id")
@@ -24,6 +26,9 @@ public class Vacancy {
     @SerializedName("users_id")
     @Expose
     int user_id=0;
+    @SerializedName("candidates")
+    @Expose
+    ArrayList<Post> candidates;
 
     public Vacancy() {
     }
@@ -42,6 +47,15 @@ public class Vacancy {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Vacancy(int id, String title, String description, String experience, int user_id, ArrayList<Post> candidates) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.experience = experience;
+        this.user_id = user_id;
+        this.candidates = candidates;
     }
 
     public String getTitle() {
@@ -74,5 +88,13 @@ public class Vacancy {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public ArrayList<Post> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(ArrayList<Post> candidates) {
+        this.candidates = candidates;
     }
 }

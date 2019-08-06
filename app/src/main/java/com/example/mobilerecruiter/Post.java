@@ -56,6 +56,12 @@ public class Post {
 
     }
 
+    public Post(int id, String f_name, String l_name) {
+        this.id = id;
+        this.f_name = f_name;
+        this.l_name = l_name;
+    }
+
     public Post(String f_name, String l_name, String mail, String telephon_number, String cv_file_name, String username, int vacancy_id) {
         this.f_name = f_name;
         this.l_name = l_name;

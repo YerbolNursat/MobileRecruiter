@@ -91,7 +91,6 @@ public class Post_page extends AppCompatActivity {
 
     private void Download() {
         final String url = (NetworkService.BASE_URL+"file/"+post.get(0).getCv_file_name());
-        System.out.println(url);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -103,7 +102,7 @@ public class Post_page extends AppCompatActivity {
                     long file_size = response.body().contentLength();
                     BufferedInputStream inputStream = new BufferedInputStream(response.body().byteStream());
                     OutputStream outputStream = new FileOutputStream(Environment.getExternalStorageDirectory() +
-                            "/Download/" + post.get(0).getCv_file_name());
+                            "/Download/" + name_surname.getText().toString().replace(" ","_")+".pdf");
                     byte[] data = new byte[81920];
                     float total = 0;
                     int read_bytes = 0;
@@ -179,6 +178,4 @@ public class Post_page extends AppCompatActivity {
         }
         name_surname.setText(post.get(0).getF_name() + " " + post.get(0).getL_name());
     }
-
-
 }
