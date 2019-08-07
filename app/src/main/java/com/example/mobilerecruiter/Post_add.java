@@ -104,14 +104,15 @@ public class Post_add extends AppCompatActivity {
     }
 
     private boolean CheckParameters() {
-        if(sv.getQuery().toString().length()!=0&&name.getText().toString().length()!=0&&surname.getText().toString().length()!=0&&telephon_number.getText().toString().length()!=0){
+        if(sv.getQuery().toString().length()!=0&&name.getText().toString().length()!=0&&surname.getText().toString().length()!=0&&telephon_number.getText().toString().length()!=0&&skills.getText().toString().length()!=0){
             return true;
         }
         return false;
     }
     private void post(String filename, ArrayList<String> tags) {
         NetworkService.getInstance().
-                getJSONApi().postPost(name.getText().toString(),surname.getText().toString(),sv.getQuery().toString(),telephon_number.getText().toString(),filename,1,tags).
+                getJSONApi().
+                postPost(name.getText().toString(),surname.getText().toString(),sv.getQuery().toString(),telephon_number.getText().toString(),filename,1,tags).
                 enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
@@ -121,7 +122,7 @@ public class Post_add extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Log.d("Error", "Error: ");
+                        Log.d("Error", t.toString());
                     }
                 });
     }
@@ -137,7 +138,8 @@ public class Post_add extends AppCompatActivity {
                         for (int i=0;i<arrayList.size();i++){
                             boolean bool=false;
                             for(int j=0;j<Skills.size();j++){
-                                if(arrayList.get(i).equals(Skills.get(j).getTag())) {
+                                if(arrayList.get(i).toLowerCase().equals(Skills.get(j).getTag().toLowerCase())) {
+                                    arrayList.set(i,Skills.get(j).getTag());
                                     bool=true;
                                 }
                             }
@@ -152,11 +154,12 @@ public class Post_add extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<List<Skills>> call, Throwable t) {
+                        Log.d("Error", t.toString());
 
                     }
                 });
     }
-    private void resendstorage(final ArrayList<String> arrayList, String id) {
+    private void resendstorage(final ArrayList<String> arrayList, final String id) {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("element1", id)

@@ -13,9 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,19 +89,65 @@ public class Posts extends Fragment {
 
 
         rv.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv, new ClickListener() {
-
             @Override
             public void onClick(View view, final int position) {
             }
             @Override
             public void onLongClick(View view, int position) {
-
+                delete(events.get(position).getId());
             }
         }));
         return view ;
     }
+
+    private void delete(int id) {
+        NetworkService.getInstance().
+                getJSONApi().
+                deletePost(id).
+                enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        setData();
+                        Log.d("Success", "Success");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d("Error",t.toString());
+                    }
+                });
+
+    }
+
     public void onStart() {
         super.onStart();
+        setData();
+        if(searchActivity!=null){
+            searchActivity.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    if(newText.contains(" ")){
+                        String[] temp=newText.split(" ");
+                        for (String s : temp) {
+                            search(s);
+                        }
+                    }else {
+                        search(newText.toLowerCase());
+                    }
+                    return true;
+
+                }
+            });
+        }else {
+            mylist.clear();
+        }
+    }
+    private void setData(){
         NetworkService.getInstance()
                 .getJSONApi()
                 .getPosts()
@@ -121,23 +164,7 @@ public class Posts extends Fragment {
                         t.printStackTrace();
                     }
                 });
-        if(searchActivity!=null){
-            searchActivity.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    return false;
-                }
 
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    search(newText.toLowerCase());
-                    return true;
-
-                }
-            });
-        }else {
-            mylist.clear();
-        }
     }
     private void search(String str) {
         mylist=new ArrayList<>();

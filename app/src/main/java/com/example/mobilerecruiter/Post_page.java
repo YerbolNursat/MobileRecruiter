@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,8 +59,8 @@ public class Post_page extends AppCompatActivity {
         telephon_number = findViewById(R.id.post_page_telephon_number);
         mail = findViewById(R.id.post_page_mail);
         call = findViewById(R.id.post_page_button_call);
-        message = findViewById(R.id.post_page_button_add_comment);
-        comment = findViewById(R.id.post_page_button_message);
+        comment = findViewById(R.id.post_page_button_add_comment);
+        message = findViewById(R.id.post_page_button_message);
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         progressDialog=new ProgressDialog(Post_page.this);
@@ -68,6 +69,28 @@ public class Post_page extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL );
         handler=new Handler();
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + telephon_number.getText()));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+
+            }
+        });
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                String[] recipients={mail.getText().toString()};
+                emailIntent.putExtra(Intent.EXTRA_EMAIL, recipients);
+                emailIntent.setType("text/plain");
+                emailIntent.setPackage("com.google.android.gm");
+                startActivity(Intent.createChooser(emailIntent, "Send mail"));
+            }
+        });
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -91,6 +114,7 @@ public class Post_page extends AppCompatActivity {
 
     private void Download() {
         final String url = (NetworkService.BASE_URL+"file/"+post.get(0).getCv_file_name());
+        System.out.println(url);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -173,7 +197,7 @@ public class Post_page extends AppCompatActivity {
         skills.setText("");
         if (post.get(0).getSkills().size() > 0) {
             for (int i = 0; i < post.get(0).getSkills().size(); i++) {
-                skills.setText(skills.getText() + "," + post.get(0).getSkills().get(i));
+                skills.setText(skills.getText() + post.get(0).getSkills().get(i)+ ",");
             }
         }
         name_surname.setText(post.get(0).getF_name() + " " + post.get(0).getL_name());

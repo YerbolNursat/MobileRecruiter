@@ -87,22 +87,7 @@ public class Vacancies extends Fragment {
         rv=view.findViewById(R.id.vacancy_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
-        NetworkService.getInstance()
-                .getJSONApi()
-                .getVacancies()
-                .enqueue(new Callback<List<Vacancy>>() {
-                    @Override
-                    public void onResponse(Call<List<Vacancy>> call, Response<List<Vacancy>> response) {
-                        assert response.body() != null;
-                        events = new ArrayList<>(response.body());
-                        Vacancy_adapter adapter=new Vacancy_adapter(events);
-                        rv.setAdapter(adapter);
-                    }
-                    @Override
-                    public void onFailure(Call<List<Vacancy>> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+        setData();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,11 +107,51 @@ public class Vacancies extends Fragment {
             }
             @Override
             public void onLongClick(View view, int position) {
-
+                delete(events.get(position).getId());
             }
         }));
         return view ;
     }
+
+    private void setData() {
+        NetworkService.getInstance()
+                .getJSONApi()
+                .getVacancies()
+                .enqueue(new Callback<List<Vacancy>>() {
+                    @Override
+                    public void onResponse(Call<List<Vacancy>> call, Response<List<Vacancy>> response) {
+                        assert response.body() != null;
+                        events = new ArrayList<>(response.body());
+                        Vacancy_adapter adapter=new Vacancy_adapter(events);
+                        rv.setAdapter(adapter);
+                    }
+                    @Override
+                    public void onFailure(Call<List<Vacancy>> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+
+    }
+
+    private void delete(int id) {
+        NetworkService.getInstance().
+                getJSONApi().
+                deleteVacancy(id).
+                enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        setData();
+                        Log.d("Success", "Success");
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d("Error",t.toString());
+                    }
+                });
+
+    }
+
     private void addVacancy() {
         vacancy = new Intent(getActivity(), Vacancy_add.class);
         startActivity(vacancy);
