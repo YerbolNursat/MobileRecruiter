@@ -1,6 +1,7 @@
 package com.example.mobilerecruiter;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,11 +16,13 @@ import android.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class Posts extends Fragment {
@@ -27,7 +30,7 @@ public class Posts extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    private SharedPreferences preferences;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -76,18 +79,22 @@ public class Posts extends Fragment {
 
         fab = view.findViewById(R.id.posts_fab);
         searchActivity=view.findViewById(R.id.posts_search);
+        preferences = Objects.requireNonNull(getContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
         fab.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
-                addCandidate();
+                if(preferences.getBoolean("is_admin",false)) {
+                    addCandidate();
+                }else {
+                    System.out.println("You don't have access");
+                }
+
             }
         });
         rv=view.findViewById(R.id.posts_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
-
-
         rv.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv, new ClickListener() {
             @Override
             public void onClick(View view, final int position) {
@@ -148,23 +155,47 @@ public class Posts extends Fragment {
         }
     }
     private void setData(){
-        NetworkService.getInstance()
-                .getJSONApi()
-                .getPosts()
-                .enqueue(new Callback<List<Post>>() {
-                    @Override
-                    public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                        assert response.body() != null;
-                        events = new ArrayList<>(response.body());
-                        Post_adapter adapter=new Post_adapter(events);
-                        rv.setAdapter(adapter);
-                    }
-                    @Override
-                    public void onFailure(Call<List<Post>> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+        if(preferences.getBoolean("is_admin",false)) {
 
+            NetworkService.getInstance()
+                    .getJSONApi()
+                    .getPosts()
+                    .enqueue(new Callback<List<Post>>() {
+                        @Override
+                        public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                            assert response.body() != null;
+                            events = new ArrayList<>(response.body());
+                            Post_adapter adapter = new Post_adapter(events);
+                            rv.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Post>> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+        }
+        else {
+            NetworkService.getInstance()
+                    .getJSONApi()
+                    .getPostsById(preferences.getInt("id",1))
+                    .enqueue(new Callback<List<Post>>() {
+                        @Override
+                        public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                            if(response.isSuccessful()) {
+                                assert response.body() != null;
+                                events = new ArrayList<>(response.body());
+                                Post_adapter adapter = new Post_adapter(events);
+                                rv.setAdapter(adapter);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Post>> call, Throwable t) {
+                            Log.d("Error", t.toString());
+                        }
+                    });
+        }
     }
     private void search(String str) {
         mylist=new ArrayList<>();

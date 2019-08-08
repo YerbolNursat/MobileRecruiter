@@ -116,8 +116,10 @@ public class Post_add extends AppCompatActivity {
                 enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        finish();
-                        Log.d("Success", "200: ");
+                        if(response.isSuccessful()){
+                            finish();
+                            Log.d("Success", "200: ");
+                        }
                     }
 
                     @Override
@@ -133,23 +135,25 @@ public class Post_add extends AppCompatActivity {
                 enqueue(new Callback<List<Skills>>() {
                     @Override
                     public void onResponse(Call<List<Skills>> call, Response<List<Skills>> response) {
-                        assert response.body() != null;
-                        Skills = new ArrayList<>(response.body());
-                        for (int i=0;i<arrayList.size();i++){
-                            boolean bool=false;
-                            for(int j=0;j<Skills.size();j++){
-                                if(arrayList.get(i).toLowerCase().equals(Skills.get(j).getTag().toLowerCase())) {
-                                    arrayList.set(i,Skills.get(j).getTag());
-                                    bool=true;
+                        if (response.isSuccessful()) {
+                            assert response.body() != null;
+                            Skills = new ArrayList<>(response.body());
+                            for (int i = 0; i < arrayList.size(); i++) {
+                                boolean bool = false;
+                                for (int j = 0; j < Skills.size(); j++) {
+                                    if (arrayList.get(i).toLowerCase().equals(Skills.get(j).getTag().toLowerCase())) {
+                                        arrayList.set(i, Skills.get(j).getTag());
+                                        bool = true;
+                                    }
+                                }
+                                if (!bool) {
+                                    System.out.println("Tags incorrect");
+//                             Toast.makeText(getApplicationContext(),"Tags incorrect",Toast.LENGTH_SHORT).show();
+                                    return;
                                 }
                             }
-                            if (!bool){
-                                System.out.println("Tags incorrect");
-//                             Toast.makeText(getApplicationContext(),"Tags incorrect",Toast.LENGTH_SHORT).show();
-                                return;
-                            }
+                            resendstorage(arrayList, id);
                         }
-                        resendstorage(arrayList,id);
                     }
 
                     @Override

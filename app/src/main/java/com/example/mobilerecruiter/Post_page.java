@@ -1,18 +1,14 @@
 package com.example.mobilerecruiter;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.DownloadManager;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,28 +34,38 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
+
+
 public class Post_page extends AppCompatActivity {
-    TextView name_surname, skills, telephon_number, mail;
-    Button call, message, comment;
+    TextView  skills, telephon_number, mail;
     String id;
     ArrayList<Post> post;
     ArrayList<Comment> events;
     RecyclerView rv;
     ProgressDialog progressDialog;
     Handler handler;
+    private SharedPreferences preferences;
+    FloatingActionMenu materialDesignFAM;
+    FloatingActionButton call, message, comment;
+    CollapsingToolbarLayout name_surname;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.post_page);
-        name_surname = findViewById(R.id.post_page_name_surname);
+        name_surname = findViewById(R.id.post_page_collapsingtoolbar);
         skills = findViewById(R.id.post_page_skills);
         telephon_number = findViewById(R.id.post_page_telephon_number);
         mail = findViewById(R.id.post_page_mail);
-        call = findViewById(R.id.post_page_button_call);
-        comment = findViewById(R.id.post_page_button_add_comment);
-        message = findViewById(R.id.post_page_button_message);
+        materialDesignFAM =  findViewById(R.id.material_design_android_floating_action_menu);
+        comment = findViewById(R.id.material_design_floating_action_menu_item1);
+        message = findViewById(R.id.material_design_floating_action_menu_item2);
+        call= findViewById(R.id.material_design_floating_action_menu_item3);
+
+
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         progressDialog=new ProgressDialog(Post_page.this);
@@ -69,8 +74,8 @@ public class Post_page extends AppCompatActivity {
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL );
         handler=new Handler();
+        preferences = Objects.requireNonNull(getApplicationContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
         call.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
                 intent.setData(Uri.parse("tel:" + telephon_number.getText()));
@@ -81,7 +86,6 @@ public class Post_page extends AppCompatActivity {
             }
         });
         message.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 String[] recipients={mail.getText().toString()};
@@ -89,8 +93,34 @@ public class Post_page extends AppCompatActivity {
                 emailIntent.setType("text/plain");
                 emailIntent.setPackage("com.google.android.gm");
                 startActivity(Intent.createChooser(emailIntent, "Send mail"));
+
             }
         });
+        comment.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                createComment();
+            }
+        });
+
+    }
+
+    private void createComment() {
+        NetworkService.getInstance()
+                .getJSONApi()
+                .postComment("hello world",post.get(0).getId(),preferences.getInt("id",0))
+                .enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if(response.isSuccessful()){
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        Log.d("Error", t.toString());
+                    }
+                });
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -104,17 +134,17 @@ public class Post_page extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.back:
                 finish();
+                return true;
             case R.id.download:
                 Download();
                 Toast.makeText(getApplication(), "Downloaded", Toast.LENGTH_SHORT).show();
-
+                return true;
         }
         return true;
     }
 
     private void Download() {
         final String url = (NetworkService.BASE_URL+"file/"+post.get(0).getCv_file_name());
-        System.out.println(url);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -126,7 +156,7 @@ public class Post_page extends AppCompatActivity {
                     long file_size = response.body().contentLength();
                     BufferedInputStream inputStream = new BufferedInputStream(response.body().byteStream());
                     OutputStream outputStream = new FileOutputStream(Environment.getExternalStorageDirectory() +
-                            "/Download/" + name_surname.getText().toString().replace(" ","_")+".pdf");
+                            "/Download/" + name_surname.getTitle().toString().replace(" ","_")+".pdf");
                     byte[] data = new byte[81920];
                     float total = 0;
                     int read_bytes = 0;
@@ -191,6 +221,7 @@ public class Post_page extends AppCompatActivity {
         rv=findViewById(R.id.post_page_rv);
         rv.setLayoutManager(new LinearLayoutManager(getApplication()));
         rv.setHasFixedSize(true);
+
         events=post.get(0).getComments();
         Comment_adapter adapter=new Comment_adapter(events);
         rv.setAdapter(adapter);
@@ -200,6 +231,6 @@ public class Post_page extends AppCompatActivity {
                 skills.setText(skills.getText() + post.get(0).getSkills().get(i)+ ",");
             }
         }
-        name_surname.setText(post.get(0).getF_name() + " " + post.get(0).getL_name());
+        name_surname.setTitle(post.get(0).getF_name() + " " + post.get(0).getL_name());
     }
 }

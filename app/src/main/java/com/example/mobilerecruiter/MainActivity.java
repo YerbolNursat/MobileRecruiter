@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences preferences;
@@ -66,12 +65,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.sign_out:
-
                 preferences.edit().putString("token","").apply();
-                finish();
                 Intent intent= new Intent(getApplication(),Login.class);
+                finish();
                 startActivity(intent);
-
+                return true;
         }
         return true;
     }

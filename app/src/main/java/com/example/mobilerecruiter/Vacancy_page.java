@@ -3,6 +3,7 @@ package com.example.mobilerecruiter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +19,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Vacancy_page extends AppCompatActivity {
-    TextView title, description,experience;
+    TextView description,experience;
+    CollapsingToolbarLayout title;
     String id;
     ArrayList<Post> posts;
     ArrayList<Vacancy> vacancies;
@@ -28,7 +30,7 @@ public class Vacancy_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vacancy_page);
-        title = findViewById(R.id.vacancy_page_title);
+        title = findViewById(R.id.vacancy_page_collapsingtoolbar);
         description = findViewById(R.id.vacancy_page_description);
         experience=findViewById(R.id.vacancy_page_experience);
         Intent intent = getIntent();
@@ -46,6 +48,7 @@ public class Vacancy_page extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.back:
                 finish();
+                return true;
         }
         return true;
     }
@@ -83,7 +86,7 @@ public class Vacancy_page extends AppCompatActivity {
         posts=vacancies.get(0).getCandidates();
         VacancyPostAdapter adapter=new VacancyPostAdapter(posts);
         rv.setAdapter(adapter);
-        title.setText(vacancies.get(0).getTitle());
+        title.setTitle(vacancies.get(0).getTitle());
         description.setText(vacancies.get(0).getDescription());
         if(vacancies.get(0).getExperience()!=null)
         experience.setText(vacancies.get(0).getExperience());

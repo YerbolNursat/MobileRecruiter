@@ -1,104 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    <ScrollView android:orientation="vertical" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    >
-    <LinearLayout
-        android:id="@+id/candidate_add_parameters"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/candidate_add_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:height="2dp"
-            android:hint="Имя"
-            android:inputType="textCapSentences" />
+    -<RelativeLayout android:layout_height="wrap_content" android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <EditText
-            android:id="@+id/candidate_add_surname"
-            android:layout_width="match_parent"
-            android:height="2dp"
-            android:hint="Фамилия"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:inputType="textCapSentences" />
 
-        <EditText
-            android:id="@+id/candidate_add_telephone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:hint="Мобильный телефон"
-            android:inputType="phone" />
-        <EditText
-            android:id="@+id/candidate_add_skills"
-            android:layout_width="match_parent"
-            android:layout_height="178dp"
-            android:layout_margin="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="0.5"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="skills"
-            android:inputType="textMultiLine" />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/candidate_add_messages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/candidate_add_parameters">
-        <android.support.v7.widget.SearchView
-            android:id="@+id/candidate_add_search_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:queryHint="Choose email"
-            >
+    -<LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/candidate_add_parameters">
 
-        </android.support.v7.widget.SearchView>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/candidate_add_recycle_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
+    <android.support.v7.widget.Toolbar app:title="Новый кандидат" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/toolbar_vacancy_add" app:titleTextColor="@android:color/white" android:background="@color/colorPrimary" android:minHeight="?attr/actionBarSize"> </android.support.v7.widget.Toolbar>
 
-        </android.support.v7.widget.RecyclerView>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/candidate_add_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@id/candidate_add_messages">
 
-        <Button
-                android:id="@+id/candidate_add_btn_create"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="0.5"
-                android:gravity="center"
-                android:backgroundTint="@color/colorAccent"
-                android:background="@color/colorAccent"
-                android:textColor="@android:color/white"
-                android:layout_margin="10dp"
-                android:text="Добавить" />
-        <Button
-                android:id="@+id/candidate_add_btn_cancel"
-                android:layout_width="0dp"
-                android:text="Отмена"
-                android:layout_margin="10dp"
-                android:textColor="@android:color/white"
-                android:background="@android:color/darker_gray"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"/>
-    </LinearLayout>
+    -<android.support.design.widget.TextInputLayout android:layout_height="110dp" android:layout_width="360dp" android:id="@+id/name" app:errorEnabled="true" app:counterEnabled="true" android:layout_marginStart="25dp">
+
+    <android.support.design.widget.TextInputEditText android:layout_height="50dp" android:layout_width="350dp" android:id="@+id/candidate_add_name" android:background="@drawable/circlebutton" android:inputType="textCapSentences" android:hint="Имя" android:height="2dp" android:layout_weight="0.5" android:textColor="@color/colorPrimary"/>
+
+</android.support.design.widget.TextInputLayout>
+
+
+    -<android.support.design.widget.TextInputLayout android:layout_height="110dp" android:layout_width="360dp" android:id="@+id/surname" app:errorEnabled="true" app:counterEnabled="true" android:layout_marginStart="25dp">
+
+    <android.support.design.widget.TextInputEditText android:layout_height="50dp" android:layout_width="350dp" android:id="@+id/candidate_add_surname" android:background="@drawable/circlebutton" android:inputType="textCapSentences" android:hint="Фамилия" android:height="2dp" android:layout_weight="0.5" android:textColor="@color/colorPrimary"/>
+
+</android.support.design.widget.TextInputLayout>
+
+
+    -<android.support.design.widget.TextInputLayout android:layout_height="110dp" android:layout_width="360dp" android:id="@+id/phone" app:errorEnabled="true" app:counterEnabled="true" android:layout_marginStart="25dp">
+
+    <android.support.design.widget.TextInputEditText android:layout_height="50dp" android:layout_width="350dp" android:id="@+id/candidate_add_telephone_number" android:background="@drawable/circlebutton" android:inputType="phone" android:hint="Мобильный телефон" android:layout_weight="0.5" android:textColor="@color/colorPrimary"/>
+
+</android.support.design.widget.TextInputLayout>
+
+
+    -<android.support.design.widget.TextInputLayout android:layout_height="110dp" android:layout_width="360dp" android:id="@+id/skills" app:errorEnabled="true" app:counterEnabled="true" android:layout_marginStart="25dp">
+
+    <android.support.design.widget.TextInputEditText android:layout_height="50dp" android:layout_width="350dp" android:id="@+id/candidate_add_skills" android:background="@drawable/circlebutton" android:inputType="textMultiLine" android:hint="Навыки" android:layout_weight="0.5" android:textColor="@color/colorPrimary" android:ems="10" android:layout_margin="4dp"/>
+
+</android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
+
+
+    -<LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/candidate_add_messages" android:layout_below="@id/candidate_add_parameters">
+
+
+    -<RelativeLayout android:layout_height="wrap_content" android:layout_width="wrap_content">
+
+    <TextView android:layout_height="45dp" android:layout_width="wrap_content" android:id="@+id/cv" android:layout_marginStart="25dp" android:textColor="@color/colorPrimary" android:textSize="18sp" android:text="Резюме:" android:layout_marginBottom="25dp" android:layout_marginRight="25dp" android:layout_marginEnd="25dp" android:layout_marginTop="25dp" android:layout_marginLeft="25dp"/>
+
+    <android.support.v7.widget.SearchView android:layout_height="37dp" android:layout_width="268dp" android:id="@+id/candidate_add_search_view" android:background="@drawable/circlebutton" android:layout_marginStart="-8dp" android:layout_marginBottom="25dp" android:layout_marginEnd="25dp" android:layout_marginTop="25dp" android:queryHint="Choose email" android:layout_toEndOf="@+id/cv"> </android.support.v7.widget.SearchView>
+
 </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/candidate_add_recycle_view" android:visibility="gone"> </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>
+
+
+    -<LinearLayout android:orientation="horizontal" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/candidate_add_buttons" android:layout_below="@id/candidate_add_messages">
+
+    <Button android:layout_height="wrap_content" android:layout_width="0dp" android:id="@+id/candidate_add_btn_create" android:background="@drawable/circlebutton" android:layout_weight="0.5" android:textColor="@android:color/white" android:layout_margin="25dp" android:text="Добавить" android:gravity="center" android:backgroundTint="@color/colorAccent" android:layout_gravity="center" android:layout_alignStart="@+id/candidate_add_buttons" android:layout_above="@+id/candidate_add_buttons"/>
+
+    <Button android:layout_height="wrap_content" android:layout_width="0dp" android:id="@+id/candidate_add_btn_cancel" android:background="@drawable/circlebutton" android:layout_weight="0.5" android:textColor="@android:color/white" android:layout_margin="25dp" android:text="Отмена" android:backgroundTint="@android:color/darker_gray"/>
+
+</LinearLayout>
+
+</RelativeLayout>
+
+</ScrollView>

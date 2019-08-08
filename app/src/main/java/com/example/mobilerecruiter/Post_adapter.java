@@ -3,6 +3,7 @@ package com.example.mobilerecruiter;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
@@ -24,27 +25,15 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.widget.PopupWindow.INPUT_METHOD_NEEDED;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder> {
     SearchView sv;
@@ -53,11 +42,13 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
     private ArrayList<Vacancy> events;
     ViewGroup viewGroup;
     View view;
+    private SharedPreferences preferences;
     public Post_adapter(ArrayList<Post> post){this.post=post;}
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.post_info,viewGroup,false);
+        view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.post_info,viewGroup,false);
+        preferences = Objects.requireNonNull(viewGroup.getContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
         this.viewGroup=viewGroup;
         return new MyViewHolder(view);
     }
@@ -75,13 +66,17 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
         myViewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowPopUp(v,position);
+                if(preferences.getBoolean("is_admin",false)) {
+                    ShowPopUp(v,position);
+                }else {
+                    System.out.println("You don't have access");
+                }
             }
         });
         myViewHolder.name_surname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Post_page.class);
+                Intent intent = new Intent(view.getContext(), Post_page.class);
                 intent.putExtra("id",String.valueOf(post.get(position).getId()));
                 v.getContext().startActivity(intent);
             }
@@ -89,7 +84,7 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
         myViewHolder.post_skills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Post_page.class);
+                Intent intent = new Intent(view.getContext(), Post_page.class);
                 intent.putExtra("id",String.valueOf(post.get(position).getId()));
                 v.getContext().startActivity(intent);
 

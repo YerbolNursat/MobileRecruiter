@@ -1,66 +1,37 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <EditText
-        android:id="@+id/vacancy_add_title"
-        android:layout_width="match_parent"
-        android:height="2dp"
-        android:hint="Должность"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:inputType="textCapSentences" />
+    <LinearLayout android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_height="wrap_content" android:layout_width="match_parent" xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditText
-        android:id="@+id/vacancy_add_experience"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:inputType="text"
-        android:hint="Опыт работы" />
+    <android.support.v7.widget.Toolbar app:title="Новая вакансия" android:layout_height="wrap_content" android:layout_width="match_parent" app:titleTextColor="@android:color/white" android:background="@color/colorPrimary" android:minHeight="?attr/actionBarSize" android:id="@+id/toolbar_vacancy_add"> </android.support.v7.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/vacancy_add_description"
-        android:layout_width="match_parent"
-        android:layout_height="178dp"
-        android:layout_margin="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_weight="0.5"
-        android:ems="10"
-        android:gravity="start|top"
-        android:hint="Описание"
-        android:inputType="textMultiLine" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    -<android.support.design.widget.TextInputLayout android:layout_height="110dp" android:layout_width="388dp" android:id="@+id/job" app:errorEnabled="true" app:counterEnabled="true">
 
-        <Button
-            android:id="@+id/vacancy_add_btn_ok"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="0.5"
-            android:gravity="center"
-            android:backgroundTint="@color/colorAccent"
-            android:background="@color/colorAccent"
-            android:textColor="@android:color/white"
-            android:layout_margin="10dp"
-            android:text="Добавить" />
+    <android.support.design.widget.TextInputEditText android:layout_height="50dp" android:layout_width="350dp" android:background="@drawable/circlebutton" android:id="@+id/vacancy_add_title" android:inputType="textCapSentences" android:hint="Должность" android:textColor="@color/colorPrimary" android:height="2dp" android:layout_weight="0.5" android:layout_marginTop="505dp" android:layout_marginStart="25dp"/>
 
-        <Button
-            android:id="@+id/vacancy_add_btn_cancel"
-            android:layout_width="0dp"
-            android:text="Отмена"
-            android:onClick="cancelButton"
-            android:layout_margin="10dp"
-            android:textColor="@android:color/white"
-            android:background="@android:color/darker_gray"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"/>
-    </LinearLayout>
+</android.support.design.widget.TextInputLayout>
+
+
+    -<android.support.design.widget.TextInputLayout android:layout_height="110dp" android:layout_width="364dp" android:id="@+id/experience" app:errorEnabled="true" app:counterEnabled="true" android:layout_marginStart="25dp">
+
+    <android.support.design.widget.TextInputEditText android:layout_height="50dp" android:layout_width="350dp" android:background="@drawable/circlebutton" android:id="@+id/vacancy_add_experience" android:inputType="text" android:hint="Опыт работы" android:textColor="@color/colorPrimary" android:layout_weight="0.5"/>
+
+</android.support.design.widget.TextInputLayout>
+
+
+    -<android.support.design.widget.TextInputLayout android:layout_height="wrap_content" android:layout_width="364dp" android:id="@+id/description" app:errorEnabled="true" app:counterEnabled="true" android:layout_marginStart="25dp">
+
+    <android.support.design.widget.TextInputEditText android:layout_height="178dp" android:layout_width="350dp" android:id="@+id/vacancy_add_description" android:inputType="textMultiLine" android:hint="Описание" android:textColor="@color/colorPrimary" android:layout_weight="0.5" android:layout_marginTop="8dp" android:layout_marginStart="25dp" android:gravity="start|top" android:ems="10" android:layout_marginBottom="8dp" android:layout_margin="0dp"/>
+
+</android.support.design.widget.TextInputLayout>
+
+
+    -<LinearLayout android:orientation="horizontal" android:layout_height="wrap_content" android:layout_width="match_parent">
+
+    <Button android:layout_height="wrap_content" android:layout_width="0dp" android:background="@drawable/circlebutton" android:id="@+id/vacancy_add_btn_ok" android:textColor="@android:color/white" android:layout_weight="0.5" android:gravity="center" android:layout_margin="25dp" android:text="Добавить" android:backgroundTint="@color/colorAccent" android:layout_gravity="center"/>
+
+    <Button android:layout_height="wrap_content" android:layout_width="0dp" android:background="@drawable/circlebutton" android:id="@+id/vacancy_add_btn_cancel" android:textColor="@android:color/white" android:layout_weight="0.5" android:layout_margin="25dp" android:text="Отмена" android:backgroundTint="@android:color/darker_gray" android:onClick="cancelButton"/>
+
+</LinearLayout>
+
 </LinearLayout>

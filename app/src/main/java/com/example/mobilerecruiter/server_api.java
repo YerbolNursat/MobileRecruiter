@@ -2,25 +2,20 @@ package com.example.mobilerecruiter;
 
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface server_api {
     @GET("/posts")
@@ -28,6 +23,9 @@ public interface server_api {
 
     @GET("/post/{id}")
     Call<List<Post>> getPostById(@Path("id") int id);
+
+    @GET("/posts/{id}")
+    Call<List<Post>> getPostsById(@Path("id") int id);
 
     @PUT("/post")
     @FormUrlEncoded
@@ -55,6 +53,9 @@ public interface server_api {
     @GET("/vacancies")
     Call<List<Vacancy>> getVacancies();
 
+    @GET("/vacancies/{id}")
+    Call<List<Vacancy>> getVacanciesById(@Path("id") int id);
+
     @GET("/vacancy/{id}")
     Call<List<Vacancy>> getVacancyById(@Path("id") int id);
 
@@ -80,6 +81,10 @@ public interface server_api {
     @FormUrlEncoded
     Call<JsonObject>  createToken(@Field("username") String username,
                                   @Field("password") String password);
-
+    @POST("/comment")
+    @FormUrlEncoded
+    Call<Void> postComment(@Field("description") String description,
+                           @Field("post_id") int post_id,
+                           @Field("users_id") int user_id);
 
 }

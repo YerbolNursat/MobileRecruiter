@@ -1,33 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/fragment_posts"
-    android:layout_margin="10dp"
-    tools:context=".Posts">
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <SearchView
-        android:id="@+id/posts_search"
-        android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:layout_height="20dp" />
+    <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto" android:fitsSystemWindows="true" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/posts_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:scrollbars="vertical" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/posts_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/add" />
+    -<android.support.design.widget.AppBarLayout android:fitsSystemWindows="true" android:layout_height="192dp" android:layout_width="match_parent" android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" android:id="@+id/appbar">
 
-</FrameLayout>
+
+    -<android.support.design.widget.CollapsingToolbarLayout app:title="Кандидаты" android:fitsSystemWindows="true" android:layout_height="match_parent" android:layout_width="match_parent" android:id="@+id/collapsingtoolbar" app:layout_scrollFlags="scroll|exitUntilCollapsed" app:expandedTitleGravity="center" app:contentScrim="?attr/colorPrimary">
+
+    <ImageView android:fitsSystemWindows="true" android:layout_height="match_parent" android:layout_width="match_parent" android:id="@+id/toolbar_image" app:layout_collapseMode="parallax" android:src="@drawable/gradient_1" android:scaleType="centerCrop" android:contentDescription="@null" android:adjustViewBounds="true"/>
+
+    <android.support.v7.widget.Toolbar android:layout_height="?attr/actionBarSize" android:layout_width="match_parent" android:id="@+id/toolbar" app:layout_collapseMode="pin" app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+</android.support.design.widget.CollapsingToolbarLayout>
+
+</android.support.design.widget.AppBarLayout>
+
+    <SearchView android:layout_height="20dp" android:layout_width="match_parent" android:id="@+id/posts_search" android:layout_margin="10dp"/>
+
+    <android.support.v7.widget.RecyclerView android:layout_height="553dp" android:layout_width="match_parent" android:id="@+id/posts_recycler_view" app:layout_behavior="@string/appbar_scrolling_view_behavior" android:scrollbars="vertical" android:layout_marginTop="-15dp"/>
+
+    <android.support.design.widget.FloatingActionButton android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/posts_fab" android:src="@drawable/add" android:layout_marginEnd="10dp" android:layout_marginBottom="10dp" android:layout_gravity="bottom|end"/>
+
+</android.support.design.widget.CoordinatorLayout>

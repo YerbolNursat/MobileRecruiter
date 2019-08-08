@@ -2,6 +2,7 @@ package com.example.mobilerecruiter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,20 +17,13 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Vacancies.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Vacancies#newInstance} factory method to
- * create an instance of this fragment.
- */
+import static android.content.Context.MODE_PRIVATE;
 public class Vacancies extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,25 +36,13 @@ public class Vacancies extends Fragment {
     ArrayList<Vacancy> events ;
     RecyclerView rv;
     private FloatingActionButton fab;
-
+    private SharedPreferences preferences;
     private Intent vacancy;
-
-
     private OnFragmentInteractionListener mListener;
-
     public Vacancies() {
         // Required empty public constructor
     }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Vacancies.
-     */
-    // TODO: Rename and change types and number of parameters
+ // TODO: Rename and change types and number of parameters
     public static Vacancies newInstance(String param1, String param2) {
         Vacancies fragment = new Vacancies();
         Bundle args = new Bundle();
@@ -87,7 +69,7 @@ public class Vacancies extends Fragment {
         rv=view.findViewById(R.id.vacancy_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
-        setData();
+        preferences = Objects.requireNonNull(getContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,29 +89,59 @@ public class Vacancies extends Fragment {
             }
             @Override
             public void onLongClick(View view, int position) {
-                delete(events.get(position).getId());
+
+                if(preferences.getBoolean("is_admin",false)) {
+                    delete(events.get(position).getId());
+                }else {
+                    System.out.println("You don't have access");
+                }
             }
         }));
+        setData();
         return view ;
     }
 
     private void setData() {
-        NetworkService.getInstance()
-                .getJSONApi()
-                .getVacancies()
-                .enqueue(new Callback<List<Vacancy>>() {
-                    @Override
-                    public void onResponse(Call<List<Vacancy>> call, Response<List<Vacancy>> response) {
-                        assert response.body() != null;
-                        events = new ArrayList<>(response.body());
-                        Vacancy_adapter adapter=new Vacancy_adapter(events);
-                        rv.setAdapter(adapter);
-                    }
-                    @Override
-                    public void onFailure(Call<List<Vacancy>> call, Throwable t) {
-                        t.printStackTrace();
-                    }
-                });
+        if(preferences.getBoolean("is_admin",false)) {
+            NetworkService.getInstance()
+                    .getJSONApi()
+                    .getVacancies()
+                    .enqueue(new Callback<List<Vacancy>>() {
+                        @Override
+                        public void onResponse(Call<List<Vacancy>> call, Response<List<Vacancy>> response) {
+                            assert response.body() != null;
+                            events = new ArrayList<>(response.body());
+                            Vacancy_adapter adapter = new Vacancy_adapter(events);
+                            rv.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Vacancy>> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+        }else{
+            NetworkService.getInstance()
+                    .getJSONApi()
+                    .getVacanciesById(preferences.getInt("id",1))
+                    .enqueue(new Callback<List<Vacancy>>() {
+                        @Override
+                        public void onResponse(Call<List<Vacancy>> call, Response<List<Vacancy>> response) {
+                            if(response.isSuccessful()){
+                                assert response.body() != null;
+                                events = new ArrayList<>(response.body());
+                                Vacancy_adapter adapter = new Vacancy_adapter(events);
+                                rv.setAdapter(adapter);
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Vacancy>> call, Throwable t) {
+                            Log.d("Error", t.toString());
+                        }
+                    });
+        }
 
     }
 
@@ -169,16 +181,6 @@ public class Vacancies extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
