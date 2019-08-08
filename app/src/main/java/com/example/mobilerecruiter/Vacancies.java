@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.daimajia.swipe.util.Attributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,35 +72,26 @@ public class Vacancies extends Fragment {
         rv=view.findViewById(R.id.vacancy_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
+
         preferences = Objects.requireNonNull(getContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
+        setData();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addVacancy();
             }
         });
-
-        rv.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv, new ClickListener() {
-
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onClick(View view, final int position) {
-
-                Intent intent = new Intent(getContext(), Vacancy_page.class);
-                intent.putExtra("id",String.valueOf(events.get(position).getId()));
-                startActivity(intent);
-
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.e("RecyclerView", "onScrollStateChanged");
             }
             @Override
-            public void onLongClick(View view, int position) {
-
-                if(preferences.getBoolean("is_admin",false)) {
-                    delete(events.get(position).getId());
-                }else {
-                    System.out.println("You don't have access");
-                }
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
             }
-        }));
-        setData();
+        });
         return view ;
     }
 
@@ -112,6 +106,7 @@ public class Vacancies extends Fragment {
                             assert response.body() != null;
                             events = new ArrayList<>(response.body());
                             Vacancy_adapter adapter = new Vacancy_adapter(events);
+                            adapter.setMode(Attributes.Mode.Single);
                             rv.setAdapter(adapter);
                         }
 
@@ -131,6 +126,7 @@ public class Vacancies extends Fragment {
                                 assert response.body() != null;
                                 events = new ArrayList<>(response.body());
                                 Vacancy_adapter adapter = new Vacancy_adapter(events);
+                                adapter.setMode(Attributes.Mode.Single);
                                 rv.setAdapter(adapter);
 
                             }
@@ -142,25 +138,6 @@ public class Vacancies extends Fragment {
                         }
                     });
         }
-
-    }
-
-    private void delete(int id) {
-        NetworkService.getInstance().
-                getJSONApi().
-                deleteVacancy(id).
-                enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        setData();
-                        Log.d("Success", "Success");
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Log.d("Error",t.toString());
-                    }
-                });
 
     }
 
@@ -184,5 +161,11 @@ public class Vacancies extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        setData();
     }
 }

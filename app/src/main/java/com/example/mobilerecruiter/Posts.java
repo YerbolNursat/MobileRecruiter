@@ -1,5 +1,6 @@
 package com.example.mobilerecruiter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -27,7 +28,6 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Posts extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private SharedPreferences preferences;
@@ -72,6 +72,7 @@ public class Posts extends Fragment {
         }
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,30 +81,18 @@ public class Posts extends Fragment {
         fab = view.findViewById(R.id.posts_fab);
         searchActivity=view.findViewById(R.id.posts_search);
         preferences = Objects.requireNonNull(getContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
+        if(!preferences.getBoolean("is_admin",false)) {
+            fab.setVisibility(View.GONE);
+        }
         fab.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View view) {
-                if(preferences.getBoolean("is_admin",false)) {
-                    addCandidate();
-                }else {
-                    System.out.println("You don't have access");
-                }
-
+                addCandidate();
             }
         });
         rv=view.findViewById(R.id.posts_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
-        rv.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv, new ClickListener() {
-            @Override
-            public void onClick(View view, final int position) {
-            }
-            @Override
-            public void onLongClick(View view, int position) {
-                delete(events.get(position).getId());
-            }
-        }));
         return view ;
     }
 

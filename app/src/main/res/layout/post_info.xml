@@ -1,16 +1,116 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Vacancy"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/post_info_swipe"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
 
-    <android.support.v7.widget.CardView android:layout_marginStart="25dp" android:layout_marginBottom="10dp" app:cardCornerRadius="10dp" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/card" android:layout_centerHorizontal="true" android:layout_height="wrap_content" tools:context=".Post" android:layout_width="350dp" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+    >
+    <android.support.v7.widget.CardView
+        android:background="@drawable/gradient_1"
+        android:layout_width="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_height="match_parent"
+        android:id="@+id/bottom_wraper"
+        app:cardCornerRadius="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="210dp"
+            android:weightSum="3"
+            android:orientation="horizontal"
+            android:layout_gravity="right"
+
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/post_info_send"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#2cbb00"
+                android:gravity="center"
+                android:text="Send"
+                android:textColor="#fff"/>
+
+            <TextView
+                android:id="@+id/post_info_edit"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#0076a5"
+                android:gravity="center"
+                android:text="Edit"
+                android:textColor="#fff"/>
 
 
-    -<RelativeLayout android:id="@+id/relative_layout" android:layout_height="match_parent" android:layout_width="match_parent" android:background="#ffffff">
+            <TextView
+                android:id="@+id/post_info_delete"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ff0000"
+                android:gravity="center"
+                android:text="Delete"
+                android:textColor="#fff"/>
 
-    <TextView android:id="@+id/post_f_name_and_l_name" android:layout_height="70dp" android:layout_width="match_parent" android:textStyle="bold" android:textSize="18sp" android:textColor="@color/colorPrimary" android:text="Name and surname" android:gravity="center|center_horizontal|center_vertical"/>
+        </LinearLayout>
 
-    <TextView android:id="@+id/post_skills" android:layout_centerHorizontal="true" android:layout_height="20dp" android:layout_width="wrap_content" android:textSize="14sp" android:textColor="@color/colorPrimary" android:text="JS" android:paddingRight="10dp" android:layout_alignBottom="@+id/post_f_name_and_l_name"/>
+    </android.support.v7.widget.CardView>
 
-    <ImageButton android:layout_marginStart="7dp" android:layout_marginBottom="7dp" android:id="@+id/post_info_image_button" android:layout_height="20dp" android:layout_width="30dp" android:src="@drawable/ic_keyboard_arrow_right_black_24dp" android:layout_marginEnd="7dp" android:layout_marginTop="30dp" android:layout_alignParentEnd="true"/>
 
-</RelativeLayout>
+    <android.support.v7.widget.CardView
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    tools:context=".Post"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:id="@+id/card"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginEnd="15dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relative_layout"
+        android:background="#ffffff">
+
+        <TextView
+            android:id="@+id/post_f_name_and_l_name"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:text="Name and surname"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/post_skills"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="JS"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@+id/post_f_name_and_l_name"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
+
 
 </android.support.v7.widget.CardView>
+
+
+</com.daimajia.swipe.SwipeLayout>

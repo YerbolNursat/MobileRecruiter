@@ -33,7 +33,7 @@ public class Message_adapter extends RecyclerView.Adapter<Message_adapter.MyView
     public int getItemCount() {
         return messages.size();
     }
-   class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder{
         TextView from,date,subject,filename;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);

@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<com.daimajia.swipe.SwipeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/message_swipe"
+    android:layout_centerHorizontal="true"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.CardView android:layout_height="wrap_content" android:layout_margin="20dp" app:cardCornerRadius="10dp" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+</LinearLayout>
+<android.support.v7.widget.CardView
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="10dp"
+    android:layout_width="match_parent">
 
 
-    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical" android:background="#ffffff" android:padding="2dp">
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="#ffffff"
+        android:padding="2dp">
 
 
-    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal" android:layout_marginStart="15dp">
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal" android:layout_marginStart="15dp">
 
     <TextView android:layout_height="60dp" android:layout_width="wrap_content" android:textSize="18sp" android:textColor="#F1463B" android:text="ФИО, E-mail: " android:gravity="center" android:fontFamily="@font/lobster" android:id="@+id/message_info_from_description"/>
 
@@ -44,3 +64,4 @@
 </LinearLayout>
 
 </android.support.v7.widget.CardView>
+</com.daimajia.swipe.SwipeLayout>

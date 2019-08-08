@@ -85,17 +85,6 @@ public class On_customers extends Fragment {
                         t.printStackTrace();
                     }
                 });
-        rv.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv, new ClickListener() {
-
-            @Override
-            public void onClick(View view, final int position) {
-
-            }
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
         return view ;
     }
 

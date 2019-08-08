@@ -22,6 +22,10 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +39,7 @@ import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.WINDOW_SERVICE;
 import static android.widget.PopupWindow.INPUT_METHOD_NEEDED;
 
-public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder> {
+public class Post_adapter extends RecyclerSwipeAdapter<Post_adapter.MyViewHolder> {
     SearchView sv;
     private RecyclerView rv;
     private ArrayList<Post> post;
@@ -43,6 +47,7 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
     ViewGroup viewGroup;
     View view;
     private SharedPreferences preferences;
+
     public Post_adapter(ArrayList<Post> post){this.post=post;}
     @NonNull
     @Override
@@ -63,33 +68,68 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
             myViewHolder.post_skills.setText(myViewHolder.post_skills.getText()+" "+
                     post.get(position).getSkills().get(i));
         }
-        myViewHolder.imageButton.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
+        myViewHolder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Post_page.class);
+                intent.putExtra("id",String.valueOf(post.get(position).getId()));
+                view.getContext().startActivity(intent);
+            }
+        });
+        myViewHolder.send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 if(preferences.getBoolean("is_admin",false)) {
-                    ShowPopUp(v,position);
+                    ShowPopUp(view,position);
                 }else {
-                    System.out.println("You don't have access");
+                    Toast.makeText(view.getContext(), "You don't have access", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-        myViewHolder.name_surname.setOnClickListener(new View.OnClickListener() {
+
+
+        myViewHolder.edit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), Post_page.class);
-                intent.putExtra("id",String.valueOf(post.get(position).getId()));
-                v.getContext().startActivity(intent);
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Edit will be near future", Toast.LENGTH_SHORT).show();
             }
         });
-        myViewHolder.post_skills.setOnClickListener(new View.OnClickListener() {
+
+        myViewHolder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), Post_page.class);
-                intent.putExtra("id",String.valueOf(post.get(position).getId()));
-                v.getContext().startActivity(intent);
+            public void onClick(final View v) {
+                if(preferences.getBoolean("is_admin",false)) {
+                    NetworkService.getInstance().
+                        getJSONApi().
+                        deletePost(post.get(position).getId()).
+                        enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if(response.isSuccessful()){
+                                    mItemManger.removeShownLayouts(myViewHolder.swipeLayout);
+                                    post.remove(position);
+                                    notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position, post.size());
+                                    mItemManger.closeAllItems();
+                                        Toast.makeText(v.getContext(), "Deleted " + myViewHolder.name_surname.getText().toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.d("Error",t.toString());
+                            }
+                        });
+                }else {
+                    Toast.makeText(view.getContext(), "You don't have access", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
+        mItemManger.bindView(myViewHolder.itemView, position);
+
 
     }
 
@@ -97,24 +137,35 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
     public int getItemCount() {
         return post.size();
     }
+    @Override
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.post_info_swipe;
+    }
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView name_surname,post_skills;
-        ImageButton imageButton;
+        TextView name_surname,post_skills,send,edit,delete;
+        SwipeLayout swipeLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            swipeLayout=itemView.findViewById(R.id.post_info_swipe);
             name_surname=itemView.findViewById(R.id.post_f_name_and_l_name);
             post_skills=itemView.findViewById(R.id.post_skills);
-            imageButton=itemView.findViewById(R.id.post_info_image_button);
-        }
+            send=itemView.findViewById(R.id.post_info_send);
+            edit=itemView.findViewById(R.id.post_info_edit);
+            delete=itemView.findViewById(R.id.post_info_delete);
+         }
     }
+
+
+
+
+
 
 
 
     public void ShowPopUp(final View v, final int i){
         WindowManager windowManager = (WindowManager) v.getContext().getSystemService(WINDOW_SERVICE);
-
         int height = (int) (windowManager.getDefaultDisplay().getHeight()*0.6);
         View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.send_pop_up,viewGroup,false);
         GradientDrawable drawable = (GradientDrawable) view.getResources().getDrawable(R.drawable.popup_shape);
@@ -142,17 +193,6 @@ public class Post_adapter extends RecyclerView.Adapter<Post_adapter.MyViewHolder
                         t.printStackTrace();
                     }
                 });
-        rv.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(), rv, new ClickListener() {
-            @Override
-            public void onClick(View view, final int position) {
-                put(events.get(position).getId(),post.get(i));
-                myDialog.dismiss();
-            }
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
         myDialog.showAtLocation(v, Gravity.BOTTOM, 0, 0);
         sv.setOnSearchClickListener(new View.OnClickListener() {
             @Override

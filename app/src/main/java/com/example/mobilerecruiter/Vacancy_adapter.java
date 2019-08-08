@@ -2,18 +2,28 @@ package com.example.mobilerecruiter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 
 import java.util.ArrayList;
 
-public class Vacancy_adapter extends RecyclerView.Adapter<Vacancy_adapter.MyViewHolder> {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyViewHolder> {
     ArrayList<Vacancy> vacancy;
     public Vacancy_adapter(ArrayList<Vacancy> vacancy){this.vacancy=vacancy;}
     @NonNull
@@ -25,9 +35,57 @@ public class Vacancy_adapter extends RecyclerView.Adapter<Vacancy_adapter.MyView
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull Vacancy_adapter.MyViewHolder myViewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final Vacancy_adapter.MyViewHolder myViewHolder, final int position) {
         myViewHolder.title.setText(vacancy.get(position).getTitle());
         myViewHolder.description.setText(vacancy.get(position).getDescription());
+
+        myViewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
+        myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
+        myViewHolder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Vacancy_page.class);
+                intent.putExtra("id",String.valueOf(vacancy.get(position).getId()));
+                view.getContext().startActivity(intent);
+            }
+        });
+
+
+        myViewHolder.Edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "Edit will be near future", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        myViewHolder.Delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                NetworkService.getInstance().
+                        getJSONApi().
+                        deleteVacancy(vacancy.get(position).getId()).
+                        enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if(response.isSuccessful()){
+                                    mItemManger.removeShownLayouts(myViewHolder.swipeLayout);
+                                    vacancy.remove(position);
+                                    notifyItemRemoved(position);
+                                    notifyItemRangeChanged(position, vacancy.size());
+                                    mItemManger.closeAllItems();
+
+                                    Toast.makeText(v.getContext(), "Deleted " + myViewHolder.title.getText().toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.d("Error",t.toString());
+                            }
+                        });
+            }
+        });
+        mItemManger.bindView(myViewHolder.itemView, position);
 
     }
 
@@ -36,13 +94,22 @@ public class Vacancy_adapter extends RecyclerView.Adapter<Vacancy_adapter.MyView
         return vacancy.size();
     }
 
+    @Override
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.vacancy_info_swipe;
+    }
+
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView title,description,experience;
+        TextView title,description,Delete,Edit;
+        public SwipeLayout swipeLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title=itemView.findViewById(R.id.vacancy_title);
             description=itemView.findViewById(R.id.vacancy_description);
+            Delete = itemView.findViewById(R.id.Delete);
+            Edit = itemView.findViewById(R.id.Edit);
+            swipeLayout=itemView.findViewById(R.id.vacancy_info_swipe);
         }
     }
 }

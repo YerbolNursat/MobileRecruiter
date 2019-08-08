@@ -91,7 +91,6 @@ public class On_customer_adapter extends RecyclerView.Adapter<On_customer_adapte
             name_surname=itemView.findViewById(R.id.on_customer_f_name_and_l_name);
             skills=itemView.findViewById(R.id.on_customer_skills);
             from=itemView.findViewById(R.id.on_customer_from);
-
         }
     }
 }
