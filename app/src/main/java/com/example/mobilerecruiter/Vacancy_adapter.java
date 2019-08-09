@@ -18,6 +18,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,11 +26,14 @@ import retrofit2.Response;
 
 public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyViewHolder> {
     ArrayList<Vacancy> vacancy;
+
+
     public Vacancy_adapter(ArrayList<Vacancy> vacancy){this.vacancy=vacancy;}
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vacancy_info,viewGroup,false);
+
         return new MyViewHolder(view);
     }
 
@@ -49,14 +53,18 @@ public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyView
                 view.getContext().startActivity(intent);
             }
         });
-
-
+        if(vacancy.get(position).getCandidates().size()>0){
+            myViewHolder.status.setText("Кандидаты есть");
+        }else {
+            myViewHolder.status.setText("Кандидатов нету");
+        }
         myViewHolder.Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(view.getContext(), "Edit will be near future", Toast.LENGTH_SHORT).show();
             }
         });
+        myViewHolder.sender.setText(vacancy.get(position).getUsername());
 
         myViewHolder.Delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +97,7 @@ public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyView
 
     }
 
+
     @Override
     public int getItemCount() {
         return vacancy.size();
@@ -101,15 +110,17 @@ public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyView
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView title,description,Delete,Edit;
+        TextView title,description,sender,status,Delete,Edit;
         public SwipeLayout swipeLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            title=itemView.findViewById(R.id.vacancy_title);
-            description=itemView.findViewById(R.id.vacancy_description);
+            title=itemView.findViewById(R.id.vacancy_info_vacancy_title);
+            description=itemView.findViewById(R.id.vacancy_info_vacancy_description);
             Delete = itemView.findViewById(R.id.Delete);
             Edit = itemView.findViewById(R.id.Edit);
             swipeLayout=itemView.findViewById(R.id.vacancy_info_swipe);
+            sender=itemView.findViewById(R.id.vacancy_info_vacancy_sender);
+            status=itemView.findViewById(R.id.vacancy_info_status);
         }
     }
 }

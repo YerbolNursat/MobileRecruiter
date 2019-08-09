@@ -62,15 +62,52 @@ public class VacancyPostAdapter extends RecyclerSwipeAdapter<VacancyPostAdapter.
 
         myViewHolder.like.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(), "You disliked it", Toast.LENGTH_SHORT).show();
+            public void onClick(final View view) {
+                 NetworkService.getInstance()
+                         .getJSONApi()
+                         .putPost(post.get(position).getId(),post.get(position).getF_name(),post.get(position).getL_name(),post.get(position).getMail(),
+                                 post.get(position).getTelephon_number(),post.get(position).getCv_file_name(),post.get(position).getVacancy_id(),
+                                 1,1,0,0,null)
+                         .enqueue(new Callback<Void>() {
+                             @Override
+                             public void onResponse(Call<Void> call, Response<Void> response) {
+                                    if (response.isSuccessful()){
+                                        Toast.makeText(view.getContext(), "You accepted candidate", Toast.LENGTH_SHORT).show();
+                                    }
+                             }
+
+                             @Override
+                             public void onFailure(Call<Void> call, Throwable t) {
+                                 Log.d("Error", t.toString());
+                                 Toast.makeText(view.getContext(), "Something wrong...", Toast.LENGTH_SHORT).show();
+                             }
+                         });
+
             }
         });
-
         myViewHolder.dislike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                Toast.makeText(view.getContext(), "You liked it", Toast.LENGTH_SHORT).show();
+                NetworkService.getInstance()
+                        .getJSONApi()
+                        .putPost(post.get(position).getId(),post.get(position).getF_name(),post.get(position).getL_name(),post.get(position).getMail(),
+                                post.get(position).getTelephon_number(),post.get(position).getCv_file_name(),1,
+                                0,0,0,0,null)
+                        .enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                if (response.isSuccessful()){
+                                    Toast.makeText(view.getContext(), "You declined candidate", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                Log.d("Error", t.toString());
+                                Toast.makeText(view.getContext(), "Something wrong...", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
             }
         });
         mItemManger.bindView(myViewHolder.itemView, position);

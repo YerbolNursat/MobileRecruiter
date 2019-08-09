@@ -32,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
                 selected=new Posts();
                 break;
             case R.id.navigation_on_customer:
-                selected=new On_customers();
+                selected=new On_interviews();
                 break;
             case R.id.navigation_on_interview:
-                selected=new On_interviews();
+                selected=new is_deployed();
                 break;
         }
         assert selected != null;

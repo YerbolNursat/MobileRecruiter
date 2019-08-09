@@ -28,6 +28,7 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class Posts extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private SharedPreferences preferences;
@@ -96,24 +97,6 @@ public class Posts extends Fragment {
         return view ;
     }
 
-    private void delete(int id) {
-        NetworkService.getInstance().
-                getJSONApi().
-                deletePost(id).
-                enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        setData();
-                        Log.d("Success", "Success");
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Log.d("Error",t.toString());
-                    }
-                });
-
-    }
 
     public void onStart() {
         super.onStart();
@@ -154,6 +137,12 @@ public class Posts extends Fragment {
                         public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
                             assert response.body() != null;
                             events = new ArrayList<>(response.body());
+                            for (int i=0;i<events.size();i++){
+                                if(events.get(i).getIs_deployed()==1){
+                                    events.remove(i);
+                                    i--;
+                                }
+                            }
                             Post_adapter adapter = new Post_adapter(events);
                             rv.setAdapter(adapter);
                         }
@@ -174,7 +163,12 @@ public class Posts extends Fragment {
                             if(response.isSuccessful()) {
                                 assert response.body() != null;
                                 events = new ArrayList<>(response.body());
-                                Post_adapter adapter = new Post_adapter(events);
+                                for (int i=0;i<events.size();i++){
+                                    if(events.get(i).getIs_deployed()==1){
+                                        events.remove(i);
+                                        i--;
+                                    }
+                                }   Post_adapter adapter = new Post_adapter(events);
                                 rv.setAdapter(adapter);
                             }
                         }

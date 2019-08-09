@@ -23,22 +23,23 @@ public class Vacancy {
     @Expose
     String experience=null;
 
-    @SerializedName("users_id")
+    @SerializedName("username")
     @Expose
-    int user_id=0;
+    String username;
+
     @SerializedName("candidates")
     @Expose
     ArrayList<Post> candidates;
 
     public Vacancy() {
     }
-
-    public Vacancy(int id,String title, String description, String experience, int user_id) {
-        this.id=id;
+    public Vacancy(int id, String title, String description, String experience, String username, ArrayList<Post> candidates) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.experience = experience;
-        this.user_id = user_id;
+        this.username=username;
+        this.candidates = candidates;
     }
 
     public int getId() {
@@ -49,14 +50,7 @@ public class Vacancy {
         this.id = id;
     }
 
-    public Vacancy(int id, String title, String description, String experience, int user_id, ArrayList<Post> candidates) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.experience = experience;
-        this.user_id = user_id;
-        this.candidates = candidates;
-    }
+
 
     public String getTitle() {
         return title;
@@ -82,13 +76,6 @@ public class Vacancy {
         this.experience = experience;
     }
 
-    public int getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
-    }
 
     public ArrayList<Post> getCandidates() {
         return candidates;
@@ -96,5 +83,13 @@ public class Vacancy {
 
     public void setCandidates(ArrayList<Post> candidates) {
         this.candidates = candidates;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

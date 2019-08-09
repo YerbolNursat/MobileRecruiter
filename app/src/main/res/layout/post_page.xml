@@ -1,113 +1,280 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-    <android.support.design.widget.CoordinatorLayout
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fitsSystemWindows="true"
-    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
 
     <android.support.design.widget.AppBarLayout
-        android:fitsSystemWindows="true"
+        android:id="@+id/post_page_appbar"
+        android:layout_width="match_parent"
         android:layout_height="190dp"
-        android:layout_width="match_parent"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:id="@+id/appbar">
-
-
-    <android.support.design.widget.CollapsingToolbarLayout
-        app:title="Name Surname"
         android:fitsSystemWindows="true"
-        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/post_page_collapsingtoolbar"
+            app:collapsedTitleGravity="left|top|center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleGravity="center"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="Name Surname">
+
+            <ImageView
+                android:id="@+id/post_page_toolbar_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/gradient_1"
+                app:layout_collapseMode="parallax" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/post_page_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:id="@+id/post_page_collapsingtoolbar"
-        app:layout_scrollFlags="exitUntilCollapsed"
-        app:expandedTitleGravity="center"
-        app:contentScrim="?attr/colorPrimary">
+        android:layout_height="wrap_content">
 
-    <ImageView android:fitsSystemWindows="true" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/toolbar_image" app:layout_collapseMode="parallax" android:src="@drawable/gradient_1" android:scaleType="centerCrop" android:contentDescription="@null" android:adjustViewBounds="true"/>
+        <LinearLayout
+            android:id="@+id/post_page_LinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar android:layout_height="?attr/actionBarSize" android:layout_width="match_parent" android:id="@+id/toolbar" app:layout_collapseMode="pin" app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="200dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Персональные данные"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-</android.support.design.widget.CollapsingToolbarLayout>
-
-</android.support.design.widget.AppBarLayout>
-
-
-    -<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="vertical">
-
-    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/post_page_recent_comments2" android:textSize="20sp" android:textColor="#162946" android:text="Персональные данные" android:gravity="center_horizontal" android:fontFamily="@font/lobster" android:layout_marginTop="200dp" android:layout_gravity="center_horizontal"/>
-
-
-    -<android.support.v7.widget.CardView android:layout_height="50dp" android:layout_width="350dp" android:id="@+id/post_page_card_view2" android:layout_marginTop="15dp" android:layout_gravity="center_horizontal" android:layout_marginBottom="25dp">
-
-
-    -<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="horizontal">
-
-    <ImageView android:layout_height="50dp" android:layout_width="50dp" android:src="@drawable/email" android:layout_marginStart="10dp"/>
-
-    <TextView android:layout_height="33dp" android:layout_width="312dp" android:id="@+id/post_page_mail" android:textSize="16sp" android:textColor="#162946" android:text="mail" android:layout_marginTop="12dp" android:layout_marginStart="25dp" android:drawablePadding="3dp"/>
-
-</LinearLayout>
-
-</android.support.v7.widget.CardView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
-    -<android.support.v7.widget.CardView android:layout_height="50dp" android:layout_width="350dp" android:id="@+id/post_page_card_view3" android:layout_marginTop="15dp" android:layout_gravity="center_horizontal" android:layout_marginBottom="25dp">
+                <TextView
+                    android:id="@+id/post_page_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_toEndOf="@+id/post_page_email_ImageView"
+                    android:gravity="center_vertical"
+                    android:text="mail"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/post_page_email_ImageView"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="7dp"
+                    app:srcCompat="@drawable/email" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/post_page_telephon_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toEndOf="@+id/post_page_phone_ImageView"
+                    android:gravity="center_vertical"
+                    android:text="87475595354"
+                    android:textColor="@color/colorPrimary" />
+
+                <ImageView
+                    android:id="@+id/post_page_phone_ImageView"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="7dp"
+                    app:srcCompat="@drawable/phone" />
 
 
-    -<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="horizontal">
+            </RelativeLayout>
 
-    <ImageView android:layout_height="50dp" android:layout_width="50dp" android:src="@drawable/phone" android:layout_marginStart="10dp"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/post_page_telephon_number" android:textSize="16sp" android:textColor="#162946" android:text="87475595354" android:layout_marginTop="12dp" android:layout_marginStart="25dp" android:drawablePadding="3dp" android:minHeight="50px"/>
+                <TextView
+                    android:id="@+id/post_page_skills"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="13dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toEndOf="@+id/post_page_skills_ImageView"
+                    android:gravity="center_vertical"
+                    android:text="NodeJS,JS"
+                    android:textColor="@color/colorPrimary" />
 
-</LinearLayout>
+                <ImageView
+                    android:id="@+id/post_page_skills_ImageView"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="7dp"
+                    app:srcCompat="@drawable/star" />
 
-</android.support.v7.widget.CardView>
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="sans-serif"
+                android:text="Комментарии"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                app:behavior_overlapTop="30dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/post_page_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/transparent"
+                    android:footerDividersEnabled="true"
+                    android:scrollbars="vertical"
+                    />
+            </android.support.v4.widget.NestedScrollView>
+
+        </LinearLayout>
 
 
-    -<android.support.v7.widget.CardView android:layout_height="50dp" android:layout_width="350dp" android:id="@+id/post_page_card_view1" android:layout_marginTop="15dp" android:layout_gravity="center_horizontal" android:layout_marginBottom="15dp">
+    </RelativeLayout>
 
 
-    -<LinearLayout android:layout_height="match_parent" android:layout_width="match_parent" android:orientation="horizontal">
-
-    <ImageView android:layout_height="50dp" android:layout_width="50dp" android:src="@drawable/star" android:layout_marginStart="10dp"/>
-
-    <TextView android:layout_height="32dp" android:layout_width="174dp" android:id="@+id/post_page_skills" android:textSize="16sp" android:textColor="#162946" android:text="NodeJS, JS" android:layout_marginTop="12dp" android:layout_marginStart="25dp" android:drawablePadding="3dp"/>
-
-</LinearLayout>
-
-</android.support.v7.widget.CardView>
-    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/post_page_recent_comments" android:textSize="20sp" android:textColor="#162946" android:text="Комментарии" android:fontFamily="@font/lobster" android:layout_marginTop="5dp" android:layout_gravity="center_horizontal" android:layout_centerHorizontal="true" android:layout_below="@+id/three_buttons"/>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_below="@+id/post_page_recent_comments"
+    <RelativeLayout
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/post_page_rv"
-        android:footerDividersEnabled="true"
-        android:background="@android:color/transparent" />
-
-</LinearLayout>
+        android:layout_height="wrap_content">
 
 
 
-    -<RelativeLayout android:layout_height="match_parent" android:layout_width="match_parent" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:fab="http://schemas.android.com/apk/res-auto">
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/post_page_floating_action_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:layout_marginBottom="11dp"
+            fab:menu_animationDelayPerItem="55"
+            fab:menu_backgroundColor="@android:color/transparent"
+            fab:menu_buttonSpacing="0dp"
+            fab:menu_colorNormal="#F1463B"
+            fab:menu_colorPressed="#dc4b3f"
+            fab:menu_colorRipple="#99d4d4d4"
+            fab:menu_fab_size="normal"
+            fab:menu_icon="@drawable/add"
+            fab:menu_labels_colorNormal="#FFFF"
+            fab:menu_labels_colorPressed="#FFFF"
+            fab:menu_labels_colorRipple="#66efecec"
+            fab:menu_labels_cornerRadius="3dp"
+            fab:menu_labels_ellipsize="none"
+            fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+            fab:menu_labels_margin="0dp"
+            fab:menu_labels_maxLines="-1"
+            fab:menu_labels_padding="8dp"
+            fab:menu_labels_position="left"
+            fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+            fab:menu_labels_showShadow="true"
+            fab:menu_labels_singleLine="false"
+            fab:menu_labels_textColor="#162946"
+            fab:menu_labels_textSize="15sp"
+            fab:menu_openDirection="up"
+            fab:menu_shadowColor="#99d4d4d4"
+            fab:menu_shadowRadius="4dp"
+            fab:menu_shadowXOffset="1dp"
+            fab:menu_shadowYOffset="4dp"
+            fab:menu_showShadow="true">
 
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/post_page_action_menu_item1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/comment"
+                fab:fab_label="Оставить комментарий"
+                fab:fab_size="mini" />
 
-    -<com.github.clans.fab.FloatingActionMenu android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/material_design_android_floating_action_menu" android:layout_marginBottom="11dp" fab:menu_showShadow="true" fab:menu_shadowYOffset="4dp" fab:menu_shadowXOffset="1dp" fab:menu_shadowRadius="4dp" fab:menu_shadowColor="#99d4d4d4" fab:menu_openDirection="up" fab:menu_labels_textSize="15sp" fab:menu_labels_textColor="#162946" fab:menu_labels_singleLine="false" fab:menu_labels_showShadow="true" fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right" fab:menu_labels_position="left" fab:menu_labels_padding="8dp" fab:menu_labels_maxLines="-1" fab:menu_labels_margin="0dp" fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right" fab:menu_labels_ellipsize="none" fab:menu_labels_cornerRadius="3dp" fab:menu_labels_colorRipple="#66efecec" fab:menu_labels_colorPressed="#FFFF" fab:menu_labels_colorNormal="#FFFF" fab:menu_icon="@drawable/add" fab:menu_fab_size="normal" fab:menu_colorRipple="#99d4d4d4" fab:menu_colorPressed="#dc4b3f" fab:menu_colorNormal="#F1463B" fab:menu_buttonSpacing="0dp" fab:menu_backgroundColor="@android:color/transparent" fab:menu_animationDelayPerItem="55" android:layout_marginRight="11dp" android:layout_marginLeft="11dp" android:layout_alignParentRight="true" android:layout_alignParentBottom="true">
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/post_page_action_menu_item2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/sendemail"
+                fab:fab_label="Написать письмо"
+                fab:fab_size="mini" />
 
-    <com.github.clans.fab.FloatingActionButton android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/material_design_floating_action_menu_item1" android:src="@drawable/comment" fab:fab_size="mini" fab:fab_label="Оставить комментарий"/>
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/post_page_action_menu_item3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/call"
+                fab:fab_label="Позвонить"
+                fab:fab_size="mini" />
 
-    <com.github.clans.fab.FloatingActionButton android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/material_design_floating_action_menu_item2" android:src="@drawable/sendemail" fab:fab_size="mini" fab:fab_label="Написать письмо"/>
+        </com.github.clans.fab.FloatingActionMenu>
 
-    <com.github.clans.fab.FloatingActionButton android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/material_design_floating_action_menu_item3" android:src="@drawable/call" fab:fab_size="mini" fab:fab_label="Позвонить"/>
-
-    </com.github.clans.fab.FloatingActionMenu>
-
-</RelativeLayout>
+    </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>
+

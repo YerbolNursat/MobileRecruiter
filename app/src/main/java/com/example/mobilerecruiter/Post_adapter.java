@@ -68,6 +68,12 @@ public class Post_adapter extends RecyclerSwipeAdapter<Post_adapter.MyViewHolder
             myViewHolder.post_skills.setText(myViewHolder.post_skills.getText()+" "+
                     post.get(position).getSkills().get(i));
         }
+        if(post.get(position).getVacancy_id()!=1){
+            myViewHolder.status.setText("Не свободен");
+        }else {
+            myViewHolder.status.setText("Свободен");
+
+        }
         myViewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
         myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
         myViewHolder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
@@ -144,7 +150,7 @@ public class Post_adapter extends RecyclerSwipeAdapter<Post_adapter.MyViewHolder
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView name_surname,post_skills,send,edit,delete;
+        TextView name_surname,post_skills,status,send,edit,delete;
         SwipeLayout swipeLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -154,8 +160,11 @@ public class Post_adapter extends RecyclerSwipeAdapter<Post_adapter.MyViewHolder
             send=itemView.findViewById(R.id.post_info_send);
             edit=itemView.findViewById(R.id.post_info_edit);
             delete=itemView.findViewById(R.id.post_info_delete);
-         }
+            status=itemView.findViewById(R.id.post_info_status);
+        }
     }
+
+
 
 
 
@@ -193,6 +202,18 @@ public class Post_adapter extends RecyclerSwipeAdapter<Post_adapter.MyViewHolder
                         t.printStackTrace();
                     }
                 });
+        rv.addOnItemTouchListener(new RecyclerTouchListener(view.getContext(), rv, new ClickListener() {
+            @Override
+            public void onClick(View view, final int position) {
+                put(events.get(position).getId(),post.get(i));
+                myDialog.dismiss();
+            }
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
         myDialog.showAtLocation(v, Gravity.BOTTOM, 0, 0);
         sv.setOnSearchClickListener(new View.OnClickListener() {
             @Override
@@ -204,18 +225,20 @@ public class Post_adapter extends RecyclerSwipeAdapter<Post_adapter.MyViewHolder
             }
         });
     }
-    public void put(int id, Post post){
+    public void put(int id, Post post) {
         new NetworkService().
                 getJSONApi().
-                putPost(post.getId(),post.getF_name(),post.getL_name(),post.getMail(),post.getTelephon_number(),post.getCv_file_name(),id).
+                putPost(post.getId(), post.getF_name(), post.getL_name(), post.getMail(), post.getTelephon_number(), post.getCv_file_name(),
+                        id, 1, 0, 0, 0,null).
                 enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        Log.e("Success", "Success" );
+                        Log.e("Success", "Success");
                     }
+
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Log.e("Error", "error" );
+                        Log.e("Error", "error");
                     }
                 });
     }

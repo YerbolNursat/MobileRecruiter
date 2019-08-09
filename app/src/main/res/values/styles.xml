@@ -1,35 +1,1 @@
-<resources>
-
-    <!-- Base application theme. -->
-
-
-
-    -<style parent="Theme.AppCompat.Light.NoActionBar" name="AppTheme">
-
-    <!-- Customize your theme here. -->
-
-
-    <item name="android:windowDisablePreview">true</item>
-
-    <item name="windowActionBar">false</item>
-
-    <item name="android:windowNoTitle">true</item>
-
-    <item name="colorPrimary">@color/colorPrimary</item>
-
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-
-    <item name="colorAccent">@color/colorAccent</item>
-
-</style>
-
-
-    -<style name="custom_Fab">
-
-    <item name="android:background">@drawable/fab_label_background</item>
-
-    <item name="android:textColor">@android:color/white</item>
-
-</style>
-
-</resources>
+<resources>    <!-- Base application theme. -->    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">        <!-- Customize your theme here. -->        <item name="colorPrimary">@color/colorPrimary</item>        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>        <item name="colorAccent">@color/colorAccent</item>    </style></resources>

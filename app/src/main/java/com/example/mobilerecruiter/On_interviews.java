@@ -1,11 +1,28 @@
 package com.example.mobilerecruiter;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -23,24 +40,18 @@ public class On_interviews extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
+    private SharedPreferences preferences;
     private String mParam1;
     private String mParam2;
-
+    ArrayList<Post> events ;
+    RecyclerView rv;
+    private Intent candidate;
     private OnFragmentInteractionListener mListener;
 
-    public On_interviews() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment On_interviews.
-     */
-    // TODO: Rename and change types and number of parameters
+    public On_interviews() {
+
+    }
     public static On_interviews newInstance(String param1, String param2) {
         On_interviews fragment = new On_interviews();
         Bundle args = new Bundle();
@@ -62,8 +73,71 @@ public class On_interviews extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_on_interview, container, false);
+        View view=inflater.inflate(R.layout.fragment_on_interview, container, false);
+        preferences = Objects.requireNonNull(getContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
+        rv=view.findViewById(R.id.on_interview_recycler_view);
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        rv.setHasFixedSize(true);
+        return view ;
+    }
+    public void onStart() {
+        super.onStart();
+        setData();
+    }
+    private void setData(){
+        if(preferences.getBoolean("is_admin",false)) {
+
+            NetworkService.getInstance()
+                    .getJSONApi()
+                    .getPosts()
+                    .enqueue(new Callback<List<Post>>() {
+                        @Override
+                        public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                            assert response.body() != null;
+                            events = new ArrayList<>(response.body());
+                            for (int i=0;i<events.size();i++){
+                                if(events.get(i).getPassed_customer()!=1||events.get(i).getPassed_interview()==1){
+                                    events.remove(i);
+                                    i--;
+                                }
+                            }
+                            On_interview_adapter adapter = new On_interview_adapter(events);
+                            rv.setAdapter(adapter);
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Post>> call, Throwable t) {
+                            t.printStackTrace();
+                        }
+                    });
+        }
+        else {
+            NetworkService.getInstance()
+                    .getJSONApi()
+                    .getPostsById(preferences.getInt("id",1))
+                    .enqueue(new Callback<List<Post>>() {
+                        @Override
+                        public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                            if(response.isSuccessful()) {
+                                assert response.body() != null;
+                                events = new ArrayList<>(response.body());
+                                for (int i=0;i<events.size();i++){
+                                    if(events.get(i).getPassed_customer()!=1||events.get(i).getPassed_interview()==1){
+                                        events.remove(i);
+                                        i--;
+                                    }
+                                }
+                                On_interview_adapter adapter = new On_interview_adapter(events);
+                                rv.setAdapter(adapter);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Post>> call, Throwable t) {
+                            Log.d("Error", t.toString());
+                        }
+                    });
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -80,16 +154,6 @@ public class On_interviews extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

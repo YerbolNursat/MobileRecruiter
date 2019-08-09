@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:background="@drawable/gradient_list"
+    android:id="@+id/layout"
+
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,9 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="142dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="85dp"
         android:fontFamily="@font/lobster"
         android:text="HR"
@@ -22,60 +22,66 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="121dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="118dp"
         android:fontFamily="@font/dawning_of_a_new_day"
         android:text="Alfa-Bank"
         android:textColor="@android:color/white"
         android:textSize="50sp" />
 
-    <EditText
-        android:background="#11000000"
-        android:autofillHints="Username"
-        android:layout_height="40dp"
-        android:layout_width="250dp"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/login_username"
-        android:textColor="@android:color/white"
-        android:textColorHint="@android:color/white"
-        android:layout_marginBottom="35dp"
-        android:textSize="16sp"
-        android:layout_centerVertical="true"
-        android:inputType="textEmailAddress"
-        android:hint="Username"
-        android:ems="10"
-        android:drawableStart="@drawable/ic_person_black_24dp"/>
 
-    <EditText
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/login_username"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="35dp"
+        android:autofillHints="@string/prompt_email"
         android:background="#11000000"
-        android:layout_height="40dp"
-        android:layout_width="250dp"
-        android:autofillHints="Password"
-        android:id="@+id/login_password"
-        android:inputType="textPassword"
-        android:textColorHint="@android:color/white"
-        android:hint="Password"
-        android:textColor="@android:color/white"
+        android:drawableStart="@drawable/ic_person_black_24dp"
         android:ems="10"
-        android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+        android:hint="@string/prompt_email"
+        android:inputType="textEmailAddress"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        android:textSize="14sp" />
+
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/login_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/login_username"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/login_username" />
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:autofillHints="@string/prompt_password"
+        android:background="#11000000"
+        android:drawableStart="@drawable/ic_vpn_key_black_24dp"
+        android:ems="10"
+        android:hint="@string/prompt_password"
+        android:textSize="14sp"
+        android:inputType="textPassword"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white" />
+
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="263dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_password"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="73dp"
-        android:layout_marginTop="46dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="25dp"
         android:background="@drawable/circlebutton"
-        android:backgroundTint="@color/colorAccent"
+        android:backgroundTint="#FFFF"
         android:text="@string/action_sign_in"
-        android:textColor="@android:color/white"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textColor="@color/colorAccent"
+        android:textColorLink="@color/colorAccent"
+        android:textSize="14sp" />
 
 </RelativeLayout>

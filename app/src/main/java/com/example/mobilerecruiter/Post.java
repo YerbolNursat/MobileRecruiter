@@ -3,6 +3,8 @@ package com.example.mobilerecruiter;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Post {
@@ -21,9 +23,6 @@ public class Post {
     @SerializedName("telephon_number")
     @Expose
     private String telephon_number=null;
-    @SerializedName("description")
-    @Expose
-    private String description=null;
     @SerializedName("passed_cv")
     @Expose
     private int passed_cv=0;
@@ -51,34 +50,30 @@ public class Post {
     @SerializedName("skills")
     @Expose
     private ArrayList<String> skills;
+    @SerializedName("interview_time")
+    @Expose
+    private Timestamp interview_time;
 
     public Post() {
 
     }
 
-    public Post(int id, String f_name, String l_name) {
+    public Post(int id, String f_name, String l_name, String mail, String telephon_number, String cv_file_name, int vacancy_id,Timestamp interview_time) {
         this.id = id;
-        this.f_name = f_name;
-        this.l_name = l_name;
-    }
-
-    public Post(String f_name, String l_name, String mail, String telephon_number, String cv_file_name, String username, int vacancy_id) {
         this.f_name = f_name;
         this.l_name = l_name;
         this.mail = mail;
         this.telephon_number = telephon_number;
         this.cv_file_name = cv_file_name;
-        this.username = username;
-        this.vacancy_id = vacancy_id;
+        this.vacancy_id=vacancy_id;
+        this.interview_time=interview_time;
     }
-
-    public Post(int id, String f_name, String l_name, String mail, String telephon_number, String description, int passed_cv, int passed_customer, int passed_interview, int is_deployed, String cv_file_name, String username, int vacancy_id, ArrayList<String> skills) {
+    public Post(int id, String f_name, String l_name, String mail, String telephon_number,  int passed_cv, int passed_customer, int passed_interview, int is_deployed, String cv_file_name, String username, int vacancy_id, ArrayList<String> skills,Timestamp interview_time) {
         this.id = id;
         this.f_name = f_name;
         this.l_name = l_name;
         this.mail = mail;
         this.telephon_number = telephon_number;
-        this.description = description;
         this.passed_cv = passed_cv;
         this.passed_customer = passed_customer;
         this.passed_interview = passed_interview;
@@ -87,15 +82,15 @@ public class Post {
         this.username = username;
         this.vacancy_id = vacancy_id;
         this.skills = skills;
+        this.interview_time=interview_time;
     }
 
-    public Post(int id, String f_name, String l_name, String mail, String telephon_number, String description, int passed_cv, int passed_customer, int passed_interview, int is_deployed, String cv_file_name, String username, int vacancy_id, ArrayList<Comment> comments, ArrayList<String> skills) {
+    public Post(int id, String f_name, String l_name, String mail, String telephon_number,  int passed_cv, int passed_customer, int passed_interview, int is_deployed, String cv_file_name, String username, int vacancy_id, ArrayList<Comment> comments, ArrayList<String> skills) {
         this.id = id;
         this.f_name = f_name;
         this.l_name = l_name;
         this.mail = mail;
         this.telephon_number = telephon_number;
-        this.description = description;
         this.passed_cv = passed_cv;
         this.passed_customer = passed_customer;
         this.passed_interview = passed_interview;
@@ -147,13 +142,6 @@ public class Post {
         this.telephon_number = telephon_number;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public int getPassed_cv() {
         return passed_cv;
@@ -225,5 +213,13 @@ public class Post {
 
     public void setSkills(ArrayList<String> skills) {
         this.skills = skills;
+    }
+
+    public Timestamp getInterview_time() {
+        return interview_time;
+    }
+
+    public void setInterview_time(Timestamp interview_time) {
+        this.interview_time = interview_time;
     }
 }

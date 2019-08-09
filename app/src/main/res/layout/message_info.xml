@@ -1,67 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<com.daimajia.swipe.SwipeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/message_swipe"
-    android:layout_centerHorizontal="true"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
-<android.support.v7.widget.CardView
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    app:cardCornerRadius="10dp"
-    android:layout_width="match_parent">
+    android:layout_marginBottom="5dp">
 
 
     <LinearLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:background="#ffffff"
-        android:padding="2dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="start|top"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            app:srcCompat="@drawable/ic_account_circle_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="vertical"
+            android:padding="2dp">
 
 
-    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal" android:layout_marginStart="15dp">
+            -
 
-    <TextView android:layout_height="60dp" android:layout_width="wrap_content" android:textSize="18sp" android:textColor="#F1463B" android:text="ФИО, E-mail: " android:gravity="center" android:fontFamily="@font/lobster" android:id="@+id/message_info_from_description"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-    <TextView android:layout_height="60dp" android:layout_width="match_parent" android:textSize="18sp" android:textColor="#162946" android:text="from email" android:gravity="center" android:id="@+id/message_info_from"/>
+                <TextView
+                    android:id="@+id/message_info_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="start|center_vertical"
+                    android:text="from email"
+                    android:textColor="#162946"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
-</LinearLayout>
-
-
-    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal" android:layout_marginStart="15dp">
-
-    <TextView android:layout_height="60dp" android:layout_width="wrap_content" android:textSize="18sp" android:textColor="#F1463B" android:text="Дата отправки: " android:gravity="center" android:fontFamily="@font/lobster" android:id="@+id/message_date_description"/>
-
-    <TextView android:layout_height="20dp" android:layout_width="wrap_content" android:layout_marginStart="60dp" android:textSize="18sp" android:textColor="#162946" android:text="26.02.12" android:id="@+id/message_date" android:layout_below="@+id/message_info_from"/>
-
-</LinearLayout>
-
-
-    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal" android:layout_marginStart="15dp">
-
-    <TextView android:layout_height="60dp" android:layout_width="wrap_content" android:textSize="18sp" android:textColor="#F1463B" android:text="Резюме: " android:gravity="center" android:fontFamily="@font/lobster" android:id="@+id/message_subject_description"/>
-
-    <TextView android:layout_height="20dp" android:layout_width="wrap_content" android:textSize="18sp" android:textColor="#162946" android:text="CV" android:id="@+id/message_subject" android:layout_below="@+id/message_date" android:paddingLeft="150dp"/>
-
-</LinearLayout>
+            </LinearLayout>
 
 
-    -<LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="horizontal" android:layout_marginStart="15dp">
+            -
 
-    <TextView android:layout_height="60dp" android:layout_width="wrap_content" android:textSize="18sp" android:textColor="#F1463B" android:text="Ссылка: " android:gravity="center" android:fontFamily="@font/lobster" android:id="@+id/message_filename_description"/>
 
-    <TextView android:layout_height="20dp" android:layout_width="wrap_content" android:textSize="18sp" android:textColor="#162946" android:text="cv.pdf" android:id="@+id/message_filename" android:layout_below="@+id/message_subject" android:paddingLeft="150dp"/>
+            -
 
-</LinearLayout>
 
-</LinearLayout>
+            -
+
+            <TextView
+                android:id="@+id/message_subject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/message_date"
+                android:text="CV"
+                android:textColor="#162946"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="15dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="5dp"
+                    app:srcCompat="@drawable/ic_pdf" />
+
+                <TextView
+                    android:id="@+id/message_filename"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/message_subject"
+                    android:layout_gravity="left"
+                    android:background="@color/neewsback"
+                    android:gravity="start"
+                    android:text="cv.pdf"
+                    android:textColor="#162946"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/message_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/message_info_from"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
+                android:gravity="end"
+                android:text="26.02.12"
+                android:textColor="#162946"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>
-</com.daimajia.swipe.SwipeLayout>

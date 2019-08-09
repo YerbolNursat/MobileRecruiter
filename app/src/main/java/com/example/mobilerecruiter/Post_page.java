@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -17,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +39,8 @@ import retrofit2.Response;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+
+import static com.example.mobilerecruiter.SplashActivity.setWindowFlag;
 
 
 public class Post_page extends AppCompatActivity {
@@ -60,12 +65,22 @@ public class Post_page extends AppCompatActivity {
         skills = findViewById(R.id.post_page_skills);
         telephon_number = findViewById(R.id.post_page_telephon_number);
         mail = findViewById(R.id.post_page_mail);
-        materialDesignFAM =  findViewById(R.id.material_design_android_floating_action_menu);
-        comment = findViewById(R.id.material_design_floating_action_menu_item1);
-        message = findViewById(R.id.material_design_floating_action_menu_item2);
-        call= findViewById(R.id.material_design_floating_action_menu_item3);
+        materialDesignFAM =  findViewById(R.id.post_page_floating_action_menu);
+        comment = findViewById(R.id.post_page_action_menu_item1);
+        message = findViewById(R.id.post_page_action_menu_item2);
+        call= findViewById(R.id.post_page_action_menu_item3);
 
-
+        if (Build.VERSION.SDK_INT >= 19 && Build.VERSION.SDK_INT < 21) {
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true);
+        }
+        if (Build.VERSION.SDK_INT >= 19) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
+        //make fully Android Transparent Status bar
+        if (Build.VERSION.SDK_INT >= 21) {
+            setWindowFlag(this, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         progressDialog=new ProgressDialog(Post_page.this);
@@ -98,7 +113,9 @@ public class Post_page extends AppCompatActivity {
         });
         comment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent commentIntent = new Intent(Post_page.this, Comments.class);
                 createComment();
+                startActivity(commentIntent);
             }
         });
 

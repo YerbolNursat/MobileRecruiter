@@ -35,7 +35,13 @@ public interface server_api {
                        @Field("mail") String mail,
                        @Field("telephon_number") String telephon_number,
                        @Field("cv_file_name") String cv_file_name,
-                       @Field("vacancy_id") int vacancy_id);
+                       @Field("vacancy_id") int vacancy_id,
+                       @Field("passed_cv")int passed_cv,
+                       @Field("passed_customer")int passed_customer,
+                       @Field("passed_interview")int passed_interview,
+                       @Field("is_deployed")int is_deployed,
+                       @Field("interview_time")String interview_time);
+
 
     @POST("/post")
     @FormUrlEncoded
