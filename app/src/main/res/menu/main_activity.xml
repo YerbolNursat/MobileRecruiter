@@ -1,9 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Posts">
     <item
-        android:id="@+id/sign_out"
-        android:title="sign_out"
-        app:showAsAction="ifRoom"/>
-
+        android:id="@+id/action_add"
+        android:icon="@drawable/more"
+        app:showAsAction="ifRoom"
+        android:title="Add">
+    </item>
+    <item
+        android:id="@+id/action_settings"
+        app:showAsAction="never"
+        android:icon="@drawable/settings"
+        android:title="Настройки">
+    </item>
+    <item
+        android:id="@+id/action_exit"
+        app:showAsAction="never"
+        android:icon="@drawable/exit"
+        android:title="Выйти">
+    </item>
 </menu>

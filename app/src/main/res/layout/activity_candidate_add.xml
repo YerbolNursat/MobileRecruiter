@@ -9,11 +9,10 @@
     -<LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/candidate_add_parameters">
 
     <android.support.v7.widget.Toolbar android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/activity_candidate_add_toolbar" app:titleTextColor="@android:color/white" android:background="@color/colorPrimary" android:minHeight="?attr/actionBarSize">
-
         <ImageView
-            android:id="@+id/fragment_vacancies_back_ImageView"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:id="@+id/activity_candidate_back_ImageView"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical|left"
             app:srcCompat="@drawable/ic_back" />
 

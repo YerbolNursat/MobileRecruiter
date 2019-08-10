@@ -23,7 +23,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="exitUntilCollapsed"
             app:title="Name Surname">
 
             <ImageView
@@ -177,13 +177,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                app:behavior_overlapTop="30dp"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/post_page_rv"
@@ -194,7 +187,6 @@
                     android:footerDividersEnabled="true"
                     android:scrollbars="vertical"
                     />
-            </android.support.v4.widget.NestedScrollView>
 
         </LinearLayout>
 

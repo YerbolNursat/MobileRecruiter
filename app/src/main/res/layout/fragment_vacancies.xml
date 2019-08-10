@@ -23,6 +23,7 @@
             app:expandedTitleGravity="center"
             android:background="@drawable/gradient_1"
             app:layout_scrollFlags="exitUntilCollapsed|scroll"
+            app:collapsedTitleGravity="left|top|center_vertical"
             app:title="Вакансии">
 
             <ImageView

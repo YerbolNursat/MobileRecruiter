@@ -23,6 +23,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:collapsedTitleGravity="left|top|center_vertical"
             app:title="Кандидаты">
 
             <ImageView
