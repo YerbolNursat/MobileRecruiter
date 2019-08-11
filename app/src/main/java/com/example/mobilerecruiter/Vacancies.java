@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v7.widget.Toolbar;
 
 import com.daimajia.swipe.util.Attributes;
 
@@ -41,6 +42,7 @@ public class Vacancies extends Fragment {
     private FloatingActionButton fab;
     private SharedPreferences preferences;
     private Intent vacancy;
+    Toolbar toolbar;
     private OnFragmentInteractionListener mListener;
     public Vacancies() {
         // Required empty public constructor
@@ -80,7 +82,9 @@ public class Vacancies extends Fragment {
                 addVacancy();
             }
         });
-
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setSubtitle("Test Subtitle");
+        toolbar.inflateMenu(R.menu.main_activity);
         return view ;
     }
 
@@ -95,7 +99,6 @@ public class Vacancies extends Fragment {
                         public void onResponse(Call<List<Vacancy>> call, Response<List<Vacancy>> response) {
                             assert response.body() != null;
                             events = new ArrayList<>(response.body());
-
                             Vacancy_adapter adapter = new Vacancy_adapter(events);
                             adapter.setMode(Attributes.Mode.Single);
                             rv.setAdapter(adapter);

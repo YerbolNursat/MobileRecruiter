@@ -4,21 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Posts">
     <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/more"
-        app:showAsAction="ifRoom"
-        android:title="Add">
+        android:id="@+id/action_accepted"
+        app:showAsAction="never"
+        android:title="Одобренные кандидаты">
     </item>
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_tags"
         app:showAsAction="never"
-        android:icon="@drawable/settings"
-        android:title="Настройки">
+        android:title="Тэги">
     </item>
     <item
         android:id="@+id/action_exit"
         app:showAsAction="never"
-        android:icon="@drawable/exit"
         android:title="Выйти">
     </item>
 </menu>

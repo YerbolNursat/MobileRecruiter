@@ -23,7 +23,8 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="Is deployed">
+            app:collapsedTitleGravity="center_vertical|top|start"
+            app:title="Одобренные">
 
             <ImageView
                 android:id="@+id/toolbar_image"

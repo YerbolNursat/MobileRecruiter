@@ -17,7 +17,7 @@
         android:title="Собеседования" />
     <item
         android:id="@+id/navigation_on_interview"
-        android:icon="@drawable/personal"
-        android:title="Личный кабинет" />
+        android:icon="@drawable/accepted"
+        android:title="Одобренные" />
 
 </menu>

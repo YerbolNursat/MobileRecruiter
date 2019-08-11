@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,13 +20,17 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyViewHolder> {
     ArrayList<Vacancy> vacancy;
+    private SharedPreferences preferences;
 
 
     public Vacancy_adapter(ArrayList<Vacancy> vacancy){this.vacancy=vacancy;}
@@ -33,7 +38,7 @@ public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vacancy_info,viewGroup,false);
-
+        preferences = Objects.requireNonNull(viewGroup.getContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
         return new MyViewHolder(view);
     }
 
@@ -42,9 +47,14 @@ public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyView
     public void onBindViewHolder(@NonNull final Vacancy_adapter.MyViewHolder myViewHolder, final int position) {
         myViewHolder.title.setText(vacancy.get(position).getTitle());
         myViewHolder.description.setText(vacancy.get(position).getDescription());
-
         myViewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-        myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
+
+        if(preferences.getBoolean("is_admin",false)){
+            myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
+        }else {
+            myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper).setVisibility(View.GONE);
+        }
+
         myViewHolder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +66,7 @@ public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyView
         if(vacancy.get(position).getCandidates().size()>0){
             myViewHolder.status.setText("Кандидаты есть");
         }else {
-            myViewHolder.status.setText("Кандидатов нету");
+            myViewHolder.status.setText("Кандидатов нет");
         }
         myViewHolder.Edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,11 +91,9 @@ public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyView
                                     notifyItemRemoved(position);
                                     notifyItemRangeChanged(position, vacancy.size());
                                     mItemManger.closeAllItems();
-
                                     Toast.makeText(v.getContext(), "Deleted " + myViewHolder.title.getText().toString(), Toast.LENGTH_SHORT).show();
                                 }
                             }
-
                             @Override
                             public void onFailure(Call<Void> call, Throwable t) {
                                 Log.d("Error",t.toString());
@@ -94,10 +102,7 @@ public class Vacancy_adapter extends RecyclerSwipeAdapter<Vacancy_adapter.MyView
             }
         });
         mItemManger.bindView(myViewHolder.itemView, position);
-
     }
-
-
     @Override
     public int getItemCount() {
         return vacancy.size();

@@ -2,6 +2,7 @@ package com.example.mobilerecruiter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.NonNull;
@@ -24,32 +25,32 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.WINDOW_SERVICE;
-import static android.widget.PopupWindow.INPUT_METHOD_NEEDED;
+import static android.content.Context.MODE_PRIVATE;
 
 public class VacancyPostAdapter extends RecyclerSwipeAdapter<VacancyPostAdapter.MyViewHolder> {
     private ArrayList<Post> post;
     public VacancyPostAdapter(ArrayList<Post> post){this.post=post;}
+    private SharedPreferences preferences;
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.vacancy_post_info,viewGroup,false);
+        preferences = Objects.requireNonNull(viewGroup.getContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
         return new MyViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int position) {
+    public void onBindViewHolder(@NonNull final VacancyPostAdapter.MyViewHolder myViewHolder, final int position) {
         myViewHolder.name_surname.setText(post.get(position).getF_name()+" "+post.get(position).getL_name());
 
         myViewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-        myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
-
         myViewHolder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +59,21 @@ public class VacancyPostAdapter extends RecyclerSwipeAdapter<VacancyPostAdapter.
                 view.getContext().startActivity(intent);
             }
         });
+
+        if(preferences.getBoolean("is_admin",false)){
+            if(post.get(position).getPassed_customer()==0){
+                myViewHolder.status.setText("В ожиданий");
+            }else {
+                myViewHolder.status.setText("Прошел");
+            }
+        }else {
+            if(post.get(position).getPassed_customer()==1){
+                myViewHolder.status.setText("Прошел");
+            }else {
+                myViewHolder.status.setVisibility(View.GONE);
+                myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.linear_layout));
+            }
+        }
 
 
         myViewHolder.like.setOnClickListener(new View.OnClickListener() {
@@ -122,19 +138,16 @@ public class VacancyPostAdapter extends RecyclerSwipeAdapter<VacancyPostAdapter.
     public int getSwipeLayoutResourceId(int position) {
         return R.id.vacancy_post_swipe;
     }
-
-
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView name_surname,skill,like,dislike;
-        SwipeLayout swipeLayout;
+        TextView name_surname,status,like,dislike;
+        public SwipeLayout swipeLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             swipeLayout=itemView.findViewById(R.id.vacancy_post_swipe);
             name_surname=itemView.findViewById(R.id.vacancy_post_info_f_name_and_l_name);
-            skill=itemView.findViewById(R.id.vacancy_post_skills);
             like=itemView.findViewById(R.id.vacancy_post_like);
             dislike=itemView.findViewById(R.id.vacancy_post_dislike);
-
+            status=itemView.findViewById(R.id.vacancy_post_info_status);
         }
     }
 

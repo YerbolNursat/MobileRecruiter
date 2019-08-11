@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,11 +27,11 @@ public class Vacancy_add extends AppCompatActivity {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(CheckParameters()){
+                if (CheckParameters()) {
                     createVacancy();
-                    finish();
+                } else {
+                    Toast.makeText(Vacancy_add.this, "Заполните всё", Toast.LENGTH_SHORT).show();
                 }
-                System.out.println("Заполните все");
             }
         });
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -49,8 +50,10 @@ public class Vacancy_add extends AppCompatActivity {
                 enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        finish();
-                        Log.d("Success", "200: ");
+                        if (response.isSuccessful()) {
+                            finish();
+                            Log.d("Success", "200: ");
+                        }
                     }
 
                     @Override
@@ -60,6 +63,6 @@ public class Vacancy_add extends AppCompatActivity {
                 });
     }
     private boolean CheckParameters() {
-        return title.getText().toString().length() != 0 && description.getText().toString().length() != 0 && experience.getText().toString().length() != 0;
+        return title.getText().toString().replaceAll(" ","").length() != 0 && description.getText().toString().replaceAll(" ","").length() != 0 && experience.getText().toString().replaceAll(" ","").length() != 0;
     }
 }

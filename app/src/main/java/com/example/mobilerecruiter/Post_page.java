@@ -90,6 +90,7 @@ public class Post_page extends AppCompatActivity {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL );
         handler=new Handler();
         preferences = Objects.requireNonNull(getApplicationContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
+
         call.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_DIAL);
@@ -114,30 +115,11 @@ public class Post_page extends AppCompatActivity {
         comment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent commentIntent = new Intent(Post_page.this, Comments.class);
-                createComment();
+                commentIntent .putExtra("id",String.valueOf(post.get(0).getId()));
                 startActivity(commentIntent);
             }
         });
 
-    }
-
-    private void createComment() {
-        NetworkService.getInstance()
-                .getJSONApi()
-                .postComment("hello world",post.get(0).getId(),preferences.getInt("id",0))
-                .enqueue(new Callback<Void>() {
-                    @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
-                        if(response.isSuccessful()){
-
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
-                        Log.d("Error", t.toString());
-                    }
-                });
     }
 
     public boolean onCreateOptionsMenu(Menu menu){

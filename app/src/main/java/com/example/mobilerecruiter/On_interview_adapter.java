@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -62,6 +63,12 @@ public class On_interview_adapter extends RecyclerSwipeAdapter<On_interview_adap
         for (int i=0;i<post.get(position).getSkills().size();i++){
             myViewHolder.post_skills.setText(myViewHolder.post_skills.getText()+" "+
                     post.get(position).getSkills().get(i));
+        }
+
+        if(!preferences.getBoolean("is_admin",false)){
+            myViewHolder.decline.setVisibility(View.GONE);
+            myViewHolder.schedule.setVisibility(View.GONE);
+            myViewHolder.accept.setVisibility(View.GONE);
         }
 
         if(post.get(position).getInterview_time()!=null) {
@@ -202,7 +209,7 @@ public class On_interview_adapter extends RecyclerSwipeAdapter<On_interview_adap
             mCalendar.set(Calendar.MINUTE, minute);
             String format=mSimpleDateFormat.format(mCalendar.getTime());
             setInterviewDay(format);
-
+            System.out.println(format);
         }
     };
     private void setStatus(MyViewHolder myViewHolder, int position) {

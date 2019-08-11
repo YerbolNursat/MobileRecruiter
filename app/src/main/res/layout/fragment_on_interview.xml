@@ -22,6 +22,7 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="center"
+            app:collapsedTitleGravity="center_vertical|top|start"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:title="Собеседования">
 

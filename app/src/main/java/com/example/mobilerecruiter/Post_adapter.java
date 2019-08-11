@@ -68,6 +68,13 @@ public class Post_adapter extends RecyclerSwipeAdapter<Post_adapter.MyViewHolder
             myViewHolder.post_skills.setText(myViewHolder.post_skills.getText()+" "+
                     post.get(position).getSkills().get(i));
         }
+
+        if(preferences.getBoolean("is_admin",false)){
+            myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
+        }else {
+            myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper).setVisibility(View.GONE);
+        }
+
         if(post.get(position).getVacancy_id()!=1){
             myViewHolder.status.setText("Не свободен");
         }else {
@@ -163,16 +170,6 @@ public class Post_adapter extends RecyclerSwipeAdapter<Post_adapter.MyViewHolder
             status=itemView.findViewById(R.id.post_info_status);
         }
     }
-
-
-
-
-
-
-
-
-
-
     public void ShowPopUp(final View v, final int i){
         WindowManager windowManager = (WindowManager) v.getContext().getSystemService(WINDOW_SERVICE);
         int height = (int) (windowManager.getDefaultDisplay().getHeight()*0.6);

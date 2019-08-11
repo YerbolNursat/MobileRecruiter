@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class On_interviews extends Fragment {
     private String mParam1;
     private String mParam2;
     ArrayList<Post> events ;
+    Toolbar toolbar;
     RecyclerView rv;
     private Intent candidate;
     private OnFragmentInteractionListener mListener;
@@ -78,6 +80,9 @@ public class On_interviews extends Fragment {
         rv=view.findViewById(R.id.on_interview_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setSubtitle("Test Subtitle");
+        toolbar.inflateMenu(R.menu.main_activity);
         return view ;
     }
     public void onStart() {

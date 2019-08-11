@@ -1,87 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Vacancy"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/vacancy_post_swipe"
+    android:layout_marginBottom="10dp"
     android:layout_marginStart="15dp"
     android:layout_marginEnd="15dp"
-    android:layout_marginBottom="20dp"
-    app:cardCornerRadius="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/vacancy_post_swipe"
-    android:layout_centerHorizontal="true"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    >
 
+    <LinearLayout
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:id="@+id/linear_layout"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/vacancy_post_like"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="Like"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/vacancy_post_dislike"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="Dislike"
+            android:textColor="#fff" />
+
+    </LinearLayout>
     <android.support.v7.widget.CardView
         android:background="@drawable/gradient_1"
         android:layout_width="match_parent"
         android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp">
+
+        <RelativeLayout
+        android:id="@+id/vacancy_post_info_relative_layout"
         android:layout_height="match_parent"
-        app:cardCornerRadius="10dp"
-        android:id="@+id/bottom_wraper"
-        >
-
-        <LinearLayout
-            android:layout_width="140dp"
-            android:weightSum="2"
-            android:orientation="horizontal"
-            android:layout_gravity="right"
-
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:background="#ffffff">
 
             <TextView
-                android:id="@+id/vacancy_post_like"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#0076a5"
+                android:id="@+id/vacancy_post_info_f_name_and_l_name"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
                 android:gravity="center"
-                android:text="Like"
-                android:textColor="#fff"/>
-
-
+                android:text="Name and surname"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
             <TextView
-                android:id="@+id/vacancy_post_dislike"
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#ff0000"
-                android:gravity="center"
-                android:text="Disl"
-                android:textColor="#fff"/>
-
-        </LinearLayout>
+                android:id="@+id/vacancy_post_info_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_alignParentEnd="true"
+                android:text="status"
+                android:tint="@color/colorPrimary" />
+        </RelativeLayout>
 
     </android.support.v7.widget.CardView>
-
-    <RelativeLayout
-    android:id="@+id/vacancy_post_info_relative_layout"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:background="#ffffff">
-
-        <TextView
-            android:id="@+id/vacancy_post_info_f_name_and_l_name"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:gravity="center"
-            android:text="Name and surname"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/vacancy_post_skills"
-            android:layout_centerHorizontal="true"
-            android:layout_height="20dp"
-            android:layout_width="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@color/colorPrimary"
-            android:text="JS"
-            android:layout_below="@+id/vacancy_post_info_f_name_and_l_name"/>
-
-
-    </RelativeLayout>
-
 
 </com.daimajia.swipe.SwipeLayout>
 

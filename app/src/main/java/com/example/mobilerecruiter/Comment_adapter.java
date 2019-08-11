@@ -36,7 +36,7 @@ public class Comment_adapter extends RecyclerView.Adapter<Comment_adapter.MyView
 
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView username,description,experience;
+        TextView username,description;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             username=itemView.findViewById(R.id.comment_info_username);

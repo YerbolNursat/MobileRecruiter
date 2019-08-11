@@ -3,6 +3,7 @@ package com.example.mobilerecruiter;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,7 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +42,7 @@ public class Posts extends Fragment {
     RecyclerView rv;
     private FloatingActionButton fab;
     private Intent candidate;
+    Toolbar toolbar;
     ArrayList<Post> mylist=new ArrayList<>();
     private SearchView searchActivity;
     private OnFragmentInteractionListener mListener;
@@ -82,6 +86,7 @@ public class Posts extends Fragment {
         fab = view.findViewById(R.id.posts_fab);
         searchActivity=view.findViewById(R.id.posts_search);
         preferences = Objects.requireNonNull(getContext()).getSharedPreferences("myPrefs", MODE_PRIVATE);
+
         if(!preferences.getBoolean("is_admin",false)) {
             fab.setVisibility(View.GONE);
         }
@@ -94,6 +99,9 @@ public class Posts extends Fragment {
         rv=view.findViewById(R.id.posts_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setSubtitle("Test Subtitle");
+        toolbar.inflateMenu(R.menu.main_activity);
         return view ;
     }
 

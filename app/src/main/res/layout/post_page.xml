@@ -44,6 +44,14 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
+                <ImageView
+                    android:id="@+id/post_page_back_ImageView"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical|left"
+                    app:srcCompat="@drawable/ic_back"
+                    tools:ignore="VectorDrawableCompat" />
+
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
@@ -165,12 +173,10 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:fontFamily="sans-serif"
                 android:text="Комментарии"
                 android:textColor="@color/colorPrimary"
@@ -178,15 +184,15 @@
                 android:textStyle="bold" />
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/post_page_rv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:background="@android:color/transparent"
-                    android:footerDividersEnabled="true"
-                    android:scrollbars="vertical"
-                    />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/post_page_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:footerDividersEnabled="true"
+                android:scrollbars="vertical"
+                />
 
         </LinearLayout>
 
@@ -194,11 +200,11 @@
     </RelativeLayout>
 
 
-    <RelativeLayout
-        xmlns:fab="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
 
         <com.github.clans.fab.FloatingActionMenu
@@ -239,6 +245,14 @@
             fab:menu_shadowXOffset="1dp"
             fab:menu_shadowYOffset="4dp"
             fab:menu_showShadow="true">
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/post_page_action_menu_item4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pdf"
+                fab:fab_label="Скачать резюме"
+                fab:fab_size="mini" />
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/post_page_action_menu_item1"

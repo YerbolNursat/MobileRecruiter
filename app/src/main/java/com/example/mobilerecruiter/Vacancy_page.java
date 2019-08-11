@@ -84,13 +84,6 @@ public class Vacancy_page extends AppCompatActivity {
         rv.setLayoutManager(new LinearLayoutManager(getApplication()));
         rv.setHasFixedSize(true);
         posts=vacancies.get(0).getCandidates();
-        for (int i=0;i<vacancies.get(0).getCandidates().size();i++){
-            if(vacancies.get(0).getCandidates().get(i).getPassed_customer()==1){
-                System.out.println("Salta");
-                vacancies.get(0).getCandidates().remove(i);
-                i--;
-            }
-        }
         VacancyPostAdapter adapter=new VacancyPostAdapter(posts);
         rv.setAdapter(adapter);
         title.setTitle(vacancies.get(0).getTitle());

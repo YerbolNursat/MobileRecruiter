@@ -52,8 +52,14 @@ public class is_deployed_adapter extends RecyclerSwipeAdapter<is_deployed_adapte
             myViewHolder.post_skills.setText(myViewHolder.post_skills.getText() + " " +
                     post.get(position).getSkills().get(i));
         }
+        if(preferences.getBoolean("is_admin",false)){
+            myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
+        }else {
+            myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper).setVisibility(View.GONE);
+            myViewHolder.decline.setVisibility(View.GONE);
+            myViewHolder.accept.setVisibility(View.GONE);
+        }
         myViewHolder.swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
-        myViewHolder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, myViewHolder.swipeLayout.findViewById(R.id.bottom_wraper));
         myViewHolder.swipeLayout.getSurfaceView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -9,10 +9,11 @@
     -<LinearLayout android:orientation="vertical" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/candidate_add_parameters">
 
     <android.support.v7.widget.Toolbar android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/activity_candidate_add_toolbar" app:titleTextColor="@android:color/white" android:background="@color/colorPrimary" android:minHeight="?attr/actionBarSize">
+
         <ImageView
             android:id="@+id/activity_candidate_back_ImageView"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="center_vertical|left"
             app:srcCompat="@drawable/ic_back" />
 
@@ -36,7 +37,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="20dp"
-        app:counterEnabled="true"
         app:errorEnabled="true">
 
         <android.support.design.widget.TextInputEditText
@@ -62,7 +62,6 @@
         android:id="@+id/surname"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:counterEnabled="true"
         app:errorEnabled="true">
 
         <android.support.design.widget.TextInputEditText
@@ -81,14 +80,10 @@
 
     </android.support.design.widget.TextInputLayout>
 
-
-    -
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:counterEnabled="true"
         app:errorEnabled="true">
 
         <android.support.design.widget.TextInputEditText
@@ -106,14 +101,10 @@
 
     </android.support.design.widget.TextInputLayout>
 
-
-    -
-
     <android.support.design.widget.TextInputLayout
         android:id="@+id/skills"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:counterEnabled="true"
         app:errorEnabled="true">
 
         <android.support.design.widget.TextInputEditText
@@ -143,13 +134,9 @@
     <TextView
         android:id="@+id/activity_candidate_add_cv"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="25dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:gravity="center_vertical"
         android:text="Резюме:"
         android:textColor="@color/colorPrimary"
@@ -160,8 +147,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="-8dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginBottom="25dp"
         android:layout_toEndOf="@+id/activity_candidate_add_cv"
         android:background="@drawable/roundedbutton"
@@ -195,7 +181,7 @@
         android:layout_height="wrap_content"
         android:layout_width="0dp"
         android:id="@+id/candidate_add_btn_cancel"
-        android:background="@drawable/circlebutton"
+        android:background="@drawable/circlebutton2"
         android:layout_weight="0.5"
         android:textColor="@color/colorPrimary"
         android:layout_margin="20dp"

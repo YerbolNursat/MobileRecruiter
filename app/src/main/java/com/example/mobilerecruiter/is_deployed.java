@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.support.v7.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class is_deployed extends Fragment {
     private String mParam2;
     ArrayList<Post> events ;
     RecyclerView rv;
+    Toolbar toolbar;
     private Intent candidate;
     private OnFragmentInteractionListener mListener;
     private SharedPreferences preferences;
@@ -87,6 +89,9 @@ public class is_deployed extends Fragment {
         rv=view.findViewById(R.id.is_deployed_recycler_view);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         rv.setHasFixedSize(true);
+        toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setSubtitle("Test Subtitle");
+        toolbar.inflateMenu(R.menu.main_activity);
         return view ;
     }
 
