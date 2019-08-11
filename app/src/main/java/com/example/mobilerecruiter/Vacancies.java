@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v7.widget.Toolbar;
@@ -86,6 +87,12 @@ public class Vacancies extends Fragment {
         toolbar.setSubtitle("Test Subtitle");
         toolbar.inflateMenu(R.menu.main_activity);
         return view ;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+            return super.onOptionsItemSelected(item);
     }
 
     private void setData() {
